@@ -9,19 +9,24 @@ Instructions on how to use:
 1.  The library exposes a method called setValues.  The method takes two parameters for first date and second date.           Both should be strings in the UK date format of dd/mm/yyyy.  This call does not require the use of the "new" key word     to instantiate the object.  The namespace pattern is used exposing the methods required.
 
     Example: var firstDate = "01/01/1970";
+    
              var secondDate = "01/01/1986";
+             
              shado.date.setValues(firstDate, secondDate);  
 
 
 2.  After calling the setValues method.  Developers can call other methods for Years, Months and Weeks to return the          calculated date comparisons.       
 
     Example: var years = shado.date.compareYears();
+    
              var months = shado.date.compareMonths();
+             
              var weeks = shado.date.compareWeeks();
              
 3.  For Days, Hours, Minutes and Seconds there is one boolean parameter required.  This parameter indicates to include the     last day in the calculation or not.  Therefore, true = include last day, false = exclude last day.  This is not           optional.
 
     Example: var days = shado.date.compareDays(false); //exclude last day.
+    
              var days = shado.date.compareDays(true);  //include last day.
              
 4.  Included with the library is a specs folder containing a js file called ShadoSpec.js.  The development of the date        comparison calculations was Test Driven.  The Jasmine v2.0 Framework was used to unit test each method and drive out      the code design.  Link: http://jasmine.github.io/
