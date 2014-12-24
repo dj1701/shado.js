@@ -8,15 +8,13 @@ Instructions on how to use:
 
 1.  The library exposes a method called setValues.  The method takes three parameters for first date and second date with an optional boolean true indicating requirement to use US Date Format.  Both date paramenters should be strings in either UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  This call does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  An exception is raised if either date parameter is not a string type with the error message of 'Parameters are not of type string'.
 
-    Example: 
+    Example UK Date Format: 
     
-             UK Date Format:
-             
              var firstDate = "01/01/1970";
              var secondDate = "01/01/1986";
              shado.date.setValues(firstDate, secondDate);
              
-             US Date Format:
+    Example US Date Format:
              
              var firstDate = "02/01/1970";
              var secondDate = "10/01/1986";
