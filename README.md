@@ -6,7 +6,7 @@ This is a JavaScript library for precise date comparison calculations between tw
 Instructions on how to use:
 ---------------------------
 
-1.  The library exposes a method called setValues.  The method takes three parameters for first date and second date with an optional boolean true indicating requirement to use US Date Format.  Both date paramenters should be strings in either UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  This call does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.
+1.  The library exposes a method called setValues.  The method takes three parameters for first date and second date with an optional boolean true indicating requirement to use US Date Format.  Both date paramenters should be strings in either UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  This call does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  An exception is raised if either date parameter is not a string type with the error message of 'Parameters are not of type string'.
 
     Example: 
     
