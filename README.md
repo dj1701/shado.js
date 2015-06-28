@@ -1,24 +1,38 @@
 shado.js
 ========
 
-This is a JavaScript library for precise date comparison calculations between two dates for Years, Months, Days, Weeks, Hours, Minutes and Seconds.
+This is a JavaScript library to provide precise date comparison calculations between two dates for Years, Months, Days, Weeks, Hours, Minutes and Seconds.
 
 Instructions on how to use:
 ---------------------------
 
-1.  The library exposes a method called setValues.  The method takes three parameters for first date and second date with an optional boolean true indicating requirement to use US Date Format.  Both date paramenters should be strings in either UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  This call does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either date parameter is not a string type.  An exception will be raised with the error message of 'Parameters are not of type string'.
+1.  The library exposes a method called setValues.  The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date Format.  Both date paramenters can be either a string using the UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  Otherwise JavaScript Date Objects.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.
 
-    Example UK Date Format: 
+The call to the setValues method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either date parameter is not a string and date type.  An exception will be raised with the error message of 'Parameters are not of expected type string or date'.
+
+    Example UK Date Format using string parameters: 
     
              var firstDate = "01/01/1970";
              var secondDate = "01/01/1986";
              shado.date.setValues(firstDate, secondDate);
              
-    Example US Date Format:
+    Example US Date Format using string parameters:
              
              var firstDate = "02/01/1970";
              var secondDate = "10/01/1986";
              shado.date.setValues(firstDate, secondDate, true);
+
+    Example of Date Object parameters:
+
+             var firstDate = new Date(2000, 0, 1);
+             var secondDate = new Date(2014, 3, 22);
+             shado.date.setValues(firstDate, secondDate);
+
+    Example of mixed types of string and date:
+
+             var firstDate = "01/01/1970";
+             var secondDate = new Date(2014, 3, 27);
+             shado.date.setValues(firstDate, secondDate);
 
 
 2.  After calling the setValues method.  Developers can call other methods for Years, Months and Weeks to return the          calculated date comparisons.       
@@ -38,7 +52,7 @@ Instructions on how to use:
              
 4.  Included with the library is a specs folder containing a js file called ShadoSpec.js.  The development of the date        comparison calculations was Test Driven.  The Jasmine v2.0 Framework was used to unit test each method and drive out      the code design.  Link: http://jasmine.github.io/
 
-The aim of this library is to aid JavaScript Developers in taking away the pain of date handling in JavaScript.  It is intended that future versions will be released when time is available.  All we ask is constructive feedback is provided from your experience in using this library.
+The aim of this library is to aid JavaScript Developers in taking away the pain of date handling in JavaScript.  It is intended that future versions will be released when time is available.  All we ask is constructive feedback is provided from your experience in using this library.  My email address is: d_jacobs@btopenworld.com
 
 Browser Support:
 ----------------

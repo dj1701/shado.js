@@ -258,6 +258,15 @@
                 expect(months).toBe(470);
             });
 
+            it('Should return 470 months with date objects between 02/18/1975 and 04/21/2014', function () {
+                var firstDate = new Date(1975, 1, 18);
+                var secondDate = new Date(2014, 3, 21);
+                shado.date.setValues(firstDate, secondDate, true);
+                var months = shado.date.compareMonths();
+
+                expect(months).toBe(470);
+            });
+
             it('Should return 1371 months with dates between 01/01/1900 and 04/27/2014', function () {
                 var firstDate = "01/01/1900";
                 var secondDate = "04/27/2014";
@@ -1029,16 +1038,16 @@
 
             expect(function () {
                 shado.date.setValues(firstDate, secondDate);
-            }).toThrow(new Error('Parameters are not of type string'));
+            }).toThrow(new Error('Parameters are not of expected type string or date'));
         });
 
-        it('Should raise exception if one parameter is not of type Date', function () {
+        it('Should raise exception if one parameter is not of type Date or String', function () {
             var firstDate = new Object();
             var secondDate = new Date(2014, 3, 27);
 
             expect(function () {
                 shado.date.setValues(firstDate, secondDate);
-            }).toThrow(new Error('Parameters are not of type string'));
+            }).toThrow(new Error('Parameters are not of expected type string or date'));
         });
 
         it('Should raise exception if both parameters is null', function () {
@@ -1047,16 +1056,36 @@
 
             expect(function () {
                 shado.date.setValues(firstDate, secondDate);
-            }).toThrow(new Error('Parameters are not of type string'));
+            }).toThrow(new Error('Parameters are not of expected type string or date'));
         });
+    });
 
-        it('Should raise exception if one parameter is not string', function () {
+    describe('Valid Parameters for both Date and String objects', function () {
+        it('Should not raise exception if first parameter is date object', function () {
             var firstDate = new Date(2014, 3, 27);
             var secondDate = "27/04/2014";
 
             expect(function () {
                 shado.date.setValues(firstDate, secondDate);
-            }).toThrow(new Error('Parameters are not of type string'));
+            }).not.toThrow(new Error('Parameters are not of expected type string or date'));
+        });
+
+        it('Should not raise exception if second parameter is date valid date object', function () {
+            var firstDate = "01/01/1970";
+            var secondDate = new Date(2014, 3, 27);
+
+            expect(function () {
+                shado.date.setValues(firstDate, secondDate);
+            }).not.toThrow(new Error('Parameters are not of expected type string or date'));
+        });
+
+        it('Should return 451440000 seconds with dates object parameters between 01/01/2000 and 22/04/2014 excluding last day', function () {
+            var firstDate = new Date(2000, 0, 1);
+            var secondDate = new Date(2014, 3, 22);
+            shado.date.setValues(firstDate, secondDate);
+            var seconds = shado.date.compareSeconds(false);
+
+            expect(seconds).toBe(451440000);
         });
     });
 
