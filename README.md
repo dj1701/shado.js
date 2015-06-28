@@ -55,4 +55,4 @@ The aim of this library is to aid JavaScript Developers in taking away the pain 
 Browser Support:
 ----------------
 
-Shado.js has been tested on the latast versions as of time of writing with Intenet Explorer, Firefox and Chrome.
+Shado.js has been tested on the latast versions as of time of writing with Intenet Explorer, Firefox and Chrome. A minified version has been added for optimised download time.
