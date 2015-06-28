@@ -6,9 +6,7 @@ This is a JavaScript library to provide precise date comparison calculations bet
 Instructions on how to use:
 ---------------------------
 
-1.  The library exposes a method called setValues.  The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date Format.  Both date paramenters can be either a string using the UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  Otherwise JavaScript Date Objects.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.
-
-The call to the setValues method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either date parameter is not a string and date type.  An exception will be raised with the error message of 'Parameters are not of expected type string or date'.
+1.  The library exposes a method called setValues.  The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date Format.  Both date paramenters can be either a string using the UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  Otherwise JavaScript Date Objects.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the setValues method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either date parameter is not a string and date type.  An exception will be raised with the error message of 'Parameters are not of expected type string or date'.
 
     Example UK Date Format using string parameters: 
     
