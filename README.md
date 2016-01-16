@@ -47,6 +47,15 @@ Instructions on how to use:
     
              var days = shado.date.compareDays(false); //exclude last day.
              var days = shado.date.compareDays(true);  //include last day.
+
+             var hours = shado.date.compareHours(false); //exclude last day.
+             var hours = shado.date.compareHours(true);  //include last day.
+
+             var minutes = shado.date.compareMinutes(false); //exclude last day.
+             var minutes = shado.date.compareMinutes(true)); //include last day.
+
+             var seconds = shado.date.compareSeconds(false); //exclude last day.
+             var seconds = shado.date.compareSeconds(true);  //include last day.
              
 4.  Included with the library is a specs folder containing a js file called ShadoSpec.js.  The development of the date        comparison calculations was Test Driven.  The Jasmine v2.0 Framework was used to unit test each method and drive out      the code design.  Link: http://jasmine.github.io/
 
