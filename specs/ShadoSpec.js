@@ -106,7 +106,7 @@
             shado.date.setValues(firstDate, secondDate);
             var years = shado.date.compareYears();
 
-            expect(years).toBe(1);
+            expect(years).toBe(2);
         });
 
         describe('In US date format', function () {
@@ -203,13 +203,13 @@
             expect(months).toBe(203);
         });
 
-        it('Should return 773 months with dates between 31/10/1949 and 01/05/2014', function () {
+        it('Should return 774 months with dates between 31/10/1949 and 01/05/2014', function () {
             var firstDate = "31/10/1949";
             var secondDate = "01/05/2014";
             shado.date.setValues(firstDate, secondDate);
             var months = shado.date.compareMonths();
 
-            expect(months).toBe(773);
+            expect(months).toBe(774);
         });
 
         it('Should return 470 months with dates between 18/02/1975 and 21/04/2014', function () {
@@ -294,13 +294,13 @@
                 expect(months).toBe(416);
             });
 
-            it('Should return 773 months with dates between 10/31/1949 and 05/01/2014', function () {
+            it('Should return 774 months with dates between 10/31/1949 and 05/01/2014', function () {
                 var firstDate = "10/31/1949";
                 var secondDate = "05/01/2014";
                 shado.date.setValues(firstDate, secondDate, true);
                 var months = shado.date.compareMonths();
 
-                expect(months).toBe(773);
+                expect(months).toBe(774);
             });
         });
     });
@@ -1116,7 +1116,7 @@
 
         it('Should return new data object for current date', function () {
             var today = new Date();
-            var date = "".concat(today.getDate(), '/', ("0" + (today.getMonth() + 1)).slice(-2), '/', today.getFullYear());
+            var date = "".concat(("0" + today.getDate()).slice(-2), '/', ("0" + (today.getMonth() + 1)).slice(-2), '/', today.getFullYear());
             var expectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
             var result = shado.date.createDate(date);
@@ -1125,7 +1125,7 @@
 
         it('Should return new data object for current date in US date format', function () {
             var today = new Date();
-            var date = "".concat(("0" + (today.getMonth() + 1)).slice(-2), '/', today.getDate(), '/', today.getFullYear());
+            var date = "".concat(("0" + (today.getMonth() + 1)).slice(-2), '/', ("0" + today.getDate()).slice(-2), '/', today.getFullYear());
             var expectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
             var result = shado.date.createDate(date, true);
