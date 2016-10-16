@@ -8,7 +8,7 @@ Instructions on how to use:
 
 1.  setDates Method
 
-The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date Format.  Both date paramenters can be either a string using the UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  Otherwise JavaScript Date Objects.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the setDates method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either parameter is not a string and date type, an exception will be raised with the error message of ‘Parameters are expecting type string or date’.
+    The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date       Format.  Both date paramenters can be either a string using the UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.         Otherwise JavaScript Date Objects.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the setDates method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either parameter is not a string and date type, an exception will be raised with the error message of ‘Parameters are expecting type string or date’.
 
 
     Example UK Date Format using string parameters:
@@ -37,7 +37,7 @@ The method takes three parameters for start date and end date with an optional b
 
 2. setDatesByUnits Method
 
-This method allows individual date units of Day, Month and Year to be passed in as separate parameters, providing additional option as to date input.  The parameter type can be a number or string.  The string numbers can have a 0 prefix on them, for example ‘01’.  As with the setDates method, the setDatesByUnits method does not require the use of the "new" key word to instantiate the object.   If the parameters are not a number or string type, an exception will be raised with the error message of ‘Parameters are expecting type number or string’.
+   This method allows individual date units of Day, Month and Year to be passed in as separate parameters, providing additional option   as to date input.  The parameter type can be a number or string.  The string numbers can have a 0 prefix on them, for example ‘01’.  As with the setDates method, the setDatesByUnits method does not require the use of the "new" key word to instantiate the object.   If the parameters are not a number or string type, an exception will be raised with the error message of ‘Parameters are expecting type number or string’.
 
     Example of the setDatesByUnits method:
 
