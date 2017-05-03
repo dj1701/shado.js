@@ -15,7 +15,7 @@ Instructions on how to use:
 
              var firstDate = "01/01/1970";
              var secondDate = "01/01/1986";
-             shado.date.setDate(firstDate, secondDate);
+             shado.date.setDates(firstDate, secondDate);
 
     Example US Date Format using string parameters:
 
