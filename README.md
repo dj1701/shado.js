@@ -29,7 +29,7 @@ Instructions on how to use:
              var secondDate = new Date(2014, 3, 22);
              shado.date.setDates(firstDate, secondDate);
 
-    Example of mixed types of string and date:
+    Example of mixed types of string and instantiated date object:
 
              var firstDate = "01/01/1970";
              var secondDate = new Date(2014, 3, 27);
@@ -75,9 +75,9 @@ Instructions on how to use:
 
 5.  Included with the library is a specs folder containing a js file called ShadoSpec.js.  The development of the date        comparison calculations was Test Driven.  The Jasmine v2.0 Framework was used to unit test each method and drive out      the code design.  Link: http://jasmine.github.io/
 
-It is intended that future versions will be released when time is available.  All we ask is constructive feedback is provided from your experience in using this library.  My email address is: d_jacobs@btopenworld.com
+It is intended that future versions will be released when time is available.  All we ask is constructive feedback is provided from your experience in using this library.  My email address is: dj1701.io@gmail.com
 
 Browser Support:
 ----------------
 
-Shado.js has been tested on the latast versions as of time of writing with Intenet Explorer, Firefox and Chrome. A minified version has been added for optimised download time.
+Shado.js has been tested on the latest versions as of time of writing with Intenet Explorer, Firefox and Chrome. A minified version has been added for optimised download time.
