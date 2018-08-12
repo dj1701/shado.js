@@ -89,3 +89,5 @@
     };
 
 })(shado);
+
+module.exports = shado;

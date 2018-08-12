@@ -3,15 +3,32 @@ shado.js
 
 This is a JavaScript library to provide precise date comparison calculations between two dates for Years, Months, Days, Weeks, Hours, Minutes and Seconds.
 
-Instructions on how to use:
----------------------------
+Commands to build and run tests
+-------------------------------
+
+1.  npm install
+
+    Download all package dependences needed for creating the node_module folder.
+
+2.  npm run build:shado
+
+    Will minify using uglify-js to create new file called shado-min.js and run all the tests in the ShadoSpec.js file, which reads in from the minified shado-min.js file.
+
+3.  npm test
+
+    This will run all the tests implemented in the ShadoSpec.js file wothout minification.
+
+Instructions on how to use
+--------------------------
 
 1.  setDates Method
 
-    The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date       Format.  Both date paramenters can be either a string using the UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.         Otherwise JavaScript Date Objects.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the setDates method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either parameter is not a string and date type, an exception will be raised with the error message of ‘Parameters are expecting type string or date’.
+    The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date Format.  Default is UK date format.  Both date paramenters can be either a string using the UK date format of dd/mm/yyyy or US date format mm/dd/yyyy.  Otherwise JavaScript Date Objects.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the setDates method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either parameter is not a string and date type, an exception will be raised with the error message of ‘Parameters are expecting type string or date’.
 
 
     Example UK Date Format using string parameters:
+
+             var shado = require("shado-min");
 
              var firstDate = "01/01/1970";
              var secondDate = "01/01/1986";
@@ -19,11 +36,15 @@ Instructions on how to use:
 
     Example US Date Format using string parameters:
 
+             var shado = require("shado-min");
+
              var firstDate = "02/01/1970";
              var secondDate = "10/01/1986";
              shado.date.setDates(firstDate, secondDate, true);
 
     Example of Date Object parameters:
+
+             var shado = require("shado-min");
 
              var firstDate = new Date(2000, 0, 1);
              var secondDate = new Date(2014, 3, 22);
@@ -31,15 +52,19 @@ Instructions on how to use:
 
     Example of mixed types of string and instantiated date object:
 
+             var shado = require("shado-min");
+
              var firstDate = "01/01/1970";
              var secondDate = new Date(2014, 3, 27);
              shado.date.setDates(firstDate, secondDate);
 
 2. setDatesByUnits Method
 
-   This method allows individual date units of Day, Month and Year to be passed in as separate parameters, providing additional option   as to date input.  The parameter type can be a number or string.  The string numbers can have a 0 prefix on them, for example ‘01’.  As with the setDates method, the setDatesByUnits method does not require the use of the "new" key word to instantiate the object.   If the parameters are not a number or string type, an exception will be raised with the error message of ‘Parameters are expecting type number or string’.
+   This method allows individual date units of Day, Month and Year to be passed in as separate parameters, providing additional option as to date input.  The parameter type can be a number or string.  The string numbers can have a 0 prefix on them, for example ‘01’.  As with the setDates method, the setDatesByUnits method does not require the use of the "new" key word to instantiate the object.   If the parameters are not a number or string type, an exception will be raised with the error message of ‘Parameters are expecting type number or string’.
 
     Example of the setDatesByUnits method:
+
+            var shado = require("shado-min");
 
             var firstDay = 31;
             var firstMonth = 12;
@@ -49,7 +74,7 @@ Instructions on how to use:
             var secondYear = 2150;
             shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
 
-3.  After calling either the setDates or setDatesByUnits method.  Developers can call other methods for Years, Months and Weeks to return the          calculated date comparisons.       
+3.  After calling either the setDates or setDatesByUnits method.  Developers can call other methods for Years, Months and Weeks to return the calculated date comparisons.       
 
     Example:
 
@@ -57,7 +82,8 @@ Instructions on how to use:
              var months = shado.date.getMonths();
              var weeks = shado.date.getWeeks();
 
-4.  For Days, Hours, Minutes and Seconds there is one boolean parameter required.  This parameter indicates to include the     last day in the calculation or not.  Therefore, true = include last day, false = exclude last day.  This is not           optional.
+4.  For Days, Hours, Minutes and Seconds there is one boolean parameter required.  This parameter indicates to include the last day in the calculation or not.
+    Therefore, true = include last day, false = exclude last day.  This is not optional.
 
     Example:
 
@@ -73,11 +99,12 @@ Instructions on how to use:
              var seconds = shado.date.getSeconds(false); //exclude last day.
              var seconds = shado.date.getSeconds(true);  //include last day.
 
-5.  Included with the library is a specs folder containing a js file called ShadoSpec.js.  The development of the date        comparison calculations was Test Driven.  The Jasmine v2.0 Framework was used to unit test each method and drive out      the code design.  Link: http://jasmine.github.io/
+5.  Included with the library is a specs folder containing a js file called ShadoSpec.js.  The development of the date comparison calculations is Test Driven.
+    The Mocha Test Runner from npmjs.org was used to unit test each method and drive out the code design.
 
-It is intended that future versions will be released when time is available.  All we ask is constructive feedback is provided from your experience in using this library.  My email address is: dj1701.io@gmail.com
+It is intended that future versions will be released when time is available.  All I ask is constructive feedback is provided from your experience in using this library.  My email address is: dj1701.io@gmail.com
 
 Browser Support:
 ----------------
 
-Shado.js has been tested on the latest versions as of time of writing with Intenet Explorer, Firefox and Chrome. A minified version has been added for optimised download time.
+Shado.js has been tested on the latest versions of Intenet Explorer, Firefox and Chrome. A minified version has been added for optimised download time.
