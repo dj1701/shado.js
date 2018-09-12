@@ -112,17 +112,17 @@ Date Formatting
 
             var result = shado.date.format("02-09-2018", "DDDD OI MMMM, yyyy");
 
-    Example US Date Format:
+    The date must be provided in US format for the format method to create the result correcly with the third parameter set to true.
 
-            The date must be provided in US format for the format method to create the result correcly with the third parameter set to true.
+    Example US Date Format:
 
             var shado = require("shado-min");
 
             var result = shado.date.format("09-02-2018", "DDDD OI MMMM, yyyy", true);
 
+    If using Date Objects the optional boolean parameter is not relevant.  The Date Object uses system settngs.
+    
     Example using Date Object:
-
-            If using Date Objects the optional boolean parameter is not relevant.  The Date Object uses system settngs.
 
             var shado = require("shado-min");
 
