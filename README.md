@@ -153,6 +153,11 @@ The Mocha Test Runner from npmjs.org was used to unit test each method and drive
 
 It is intended that future versions will be released when time is available.  All I ask is constructive feedback is provided from your experience in using this library.  My email address is: dj1701.io@gmail.com
 
+Node Version:
+-------------
+
+Supported for Node v10.8.0 or later.
+
 Browser Support:
 ----------------
 
