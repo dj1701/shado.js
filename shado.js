@@ -28,6 +28,23 @@
         return endDate - startDate;
     };
 
+    var createTimeSpans = (date) => {
+        var monthNames = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+        var dayNames = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
+
+        var applyLeadingZero = (unit) => (unit < 0 || unit > 9 ? "" : "0") + unit;
+        var ordinalIndicatorSuffix = (day) => {var result = day % 10;if (result === 1) {return day + "st";}if (result === 2) {return day + "nd";}if(result === 3) {return day + "rd";}return day + "th";}
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var dayOfWeek = date.getDay();
+        return {
+            "d": day, "dd": applyLeadingZero(day), "M": applyLeadingZero(month), "MM": applyLeadingZero(month),
+            "MMM": monthNames[month + 11], "MMMM": monthNames[month - 1], "yyyy": date.getFullYear().toString(),
+            "yy": date.getFullYear().toString().slice(2), "OI": ordinalIndicatorSuffix(day),
+            "DDD": dayNames[dayOfWeek + 7], "DDDD": dayNames[dayOfWeek]
+        };
+    }
+
     ns.date = ns.date || {};
 
     ns.date.createDate = (date, useUsDateFormat) => {
@@ -84,33 +101,12 @@
             throw new Error("Parameters expected should be of type string or date");
         }
 
-        var monthNames = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-        var dayNames = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
-
-        var applyLeadingZero = (unit) => (unit < 0 || unit > 9 ? "" : "0") + unit;
-        var ordinalIndicatorSuffix = (day) => {var result = day % 10;if (result === 1) {return day + "st";}if (result === 2) {return day + "nd";}if(result === 3) {return day + "rd";}return day + "th";}
-        var timeSpan = {};
         var dateObject = date;
-
         if (Object.prototype.toString.call(date) === "[object String]") {
             dateObject = ns.date.createDate(date, useUsDateFormat);
         }
 
-        var month = dateObject.getMonth() + 1;
-        var day = dateObject.getDate();
-        var dayOfWeek = dateObject.getDay();
-        timeSpan["d"] = day;
-        timeSpan["dd"] = applyLeadingZero(day);
-        timeSpan["M"] = applyLeadingZero(month);
-        timeSpan["MM"] = applyLeadingZero(month);
-        timeSpan["MMM"] = monthNames[month + 11];
-        timeSpan["MMMM"] = monthNames[month - 1];
-        timeSpan["yyyy"] = dateObject.getFullYear().toString();
-        timeSpan["yy"] = timeSpan["yyyy"].slice(2);
-        timeSpan["OI"] = ordinalIndicatorSuffix(day);
-        timeSpan["DDD"] = dayNames[dayOfWeek + 7];
-        timeSpan["DDDD"] = dayNames[dayOfWeek];
-
+        var timeSpan = createTimeSpans(dateObject);
         var i = 0;
         var result = "";
         while (i < formatPattern.length) {
