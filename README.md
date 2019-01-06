@@ -19,11 +19,11 @@ Commands to build and run tests
 
 2.  npm run build:shado
 
-    Will minify the code using uglify-es to create the new file called shado-min.js and run all the tests in the ShadoSpec.js file, which reads in from the minified shado-min.js file.
+    Will minify the code using uglify-es to create the new file called shado-min.js and run all the tests implemented in the js files found in the tests directory, which reads in from the minified shado-min.js file.
 
 3.  npm test
 
-    This will run all the tests implemented in the ShadoSpec.js file without the minification step.
+    This will run all the tests implemented in the js files found in the test directory without the minification step.
 
 Instructions on how to use
 --------------------------
