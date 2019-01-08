@@ -19,7 +19,7 @@ Commands to build and run tests
 
 2.  npm run build:shado
 
-    Will minify the code using uglify-es to create the new file called shado-min.js and run all the tests implemented in the js files found in the tests directory, which reads in from the minified shado-min.js file.
+    Will minify the code using uglify-es to create the new file called shado-min.js in the release directory and run all the tests implemented in the js files found in the tests directory, which reads in from the minified shado-min.js file.
 
 3.  npm test
 
@@ -35,7 +35,7 @@ Instructions on how to use
 
     Example UK Date Format using string parameters:
 
-        var shado = require("shado-min");
+        var shado = require("shado");
 
         var firstDate = "01/01/1970";
         var secondDate = "01/01/1986";
@@ -43,7 +43,7 @@ Instructions on how to use
 
     Example US Date Format using string parameters:
 
-        var shado = require("shado-min");
+        var shado = require("shado");
 
         var firstDate = "02/01/1970";
         var secondDate = "10/01/1986";
@@ -51,7 +51,7 @@ Instructions on how to use
 
     Example of Date Object parameters:
 
-        var shado = require("shado-min");
+        var shado = require("shado");
 
         var firstDate = new Date(2000, 0, 1);
         var secondDate = new Date(2014, 3, 22);
@@ -59,7 +59,7 @@ Instructions on how to use
 
     Example of mixed types of string and instantiated date object:
 
-        var shado = require("shado-min");
+        var shado = require("shado");
 
         var firstDate = "01/01/1970";
         var secondDate = new Date(2014, 3, 27);
@@ -71,7 +71,7 @@ Instructions on how to use
 
     Example of the setDatesByUnits method:
 
-        var shado = require("shado-min");
+        var shado = require("shado");
 
         var firstDay = 31;
         var firstMonth = 12;
@@ -115,7 +115,7 @@ Date Formatting
 
     Example:
 
-        var shado = require("shado-min");
+        var shado = require("shado");
 
         var result = shado.date.format("02-09-2018", "DDDD OI MMMM, yyyy");
 
@@ -123,7 +123,7 @@ Date Formatting
 
     Example US Date Format:
 
-        var shado = require("shado-min");
+        var shado = require("shado");
 
         var result = shado.date.format("09-02-2018", "DDDD OI MMMM, yyyy", true);
 
@@ -131,7 +131,7 @@ Date Formatting
     
     Example using Date Object:
 
-        var shado = require("shado-min");
+        var shado = require("shado");
 
         var result = shado.date.format(new Date(2018, 8, 2), "DDDD OI MMMM, yyyy");
 

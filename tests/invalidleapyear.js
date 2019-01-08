@@ -1,6 +1,6 @@
 "use strict"
 
-var shado = require('../shado-min');
+var shado = require('../release/shado-min');
 var expect = require('chai').expect;
 
 describe('Invalid Leap Year', () => {
