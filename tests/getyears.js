@@ -114,6 +114,14 @@ describe('Get Years', () => {
             expect(years).to.equal(2);
         });
 
+        it('Should return 9 years with dates between 01/01/2010 and 01/01/2019', () => {
+            var firstDate = "01/01/2010";
+            var secondDate = "01/01/2019";
+            var years = shado.date.setDates(firstDate, secondDate).getYears();
+
+            expect(years).to.equal(9);
+        });
+
         describe('In US date format', () => {
             it('Should return 23 years with dates between 10/30/1990 and 03/29/2014', () => {
                 var firstDate = "10/30/1990";

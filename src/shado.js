@@ -47,6 +47,14 @@
 
     ns.date = ns.date || {};
 
+    var extensions = _ => {
+        return {
+            getYears: ns.date.getYears,
+            getMonths: ns.date.getMonths,
+            getDays: ns.date.getDays
+        };
+    };
+
     ns.date.createDate = (date, useUsDateFormat) => {
         if (Object.prototype.toString.call(date) === "[object String]") {
             var dateString = date.match(/^(\d{2})[\/|-](\d{2})[\/-](\d{4})/);
@@ -61,6 +69,8 @@
         startDate = ns.date.createDate(beginDate, useUsDateFormat);
         endDate = ns.date.createDate(finishDate, useUsDateFormat);
         difference = getDifference(startDate, endDate);
+
+        return extensions();
     };
 
     ns.date.setDatesByUnits = (startDay, startMonth, startYear, endDay, endMonth, endYear) => {
@@ -73,8 +83,8 @@
     };
 
     ns.date.getYears = _ => {
-        var result = (endDate.getFullYear() - startDate.getFullYear());
-        return (endDate.getDate() < startDate.getDate()) || (endDate.getMonth() < startDate.getMonth()) ? result -= 1 : result;
+        var diff = (endDate.getFullYear() - startDate.getFullYear());
+        return (endDate.getDate() < startDate.getDate()) || (endDate.getMonth() < startDate.getMonth()) ? diff -= 1 : diff;
     };
 
     ns.date.getMonths = _ => {
@@ -133,7 +143,7 @@
         }
 
         return result;
-    }
+    };
 
 })(shado);
 

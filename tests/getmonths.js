@@ -96,6 +96,14 @@ describe('Get Months', () => {
             expect(months).to.equal(1371);
         });
 
+        it('Should return 1430 months with dates between 01/01/1900 and 27/04/2014', () => {
+            var firstDate = "01/01/1900";
+            var secondDate = "05/03/2019";
+            var months = shado.date.setDates(firstDate, secondDate).getMonths();
+
+            expect(months).to.equal(1430);
+        });
+
         describe('In US date format', () => {
             it('Should return 470 months with dates between 02/18/1975 and 04/21/2014', () => {
                 var firstDate = "02/18/1975";
