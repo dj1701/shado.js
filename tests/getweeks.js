@@ -96,6 +96,14 @@ describe('Get Weeks', () => {
             expect(weeks).to.equal(0);
         });
 
+        it('Should return 2035 weeks with dates between 01/01/1981 and 02/01/2020', () => {
+            var firstDate = "01/01/1981";
+            var secondDate = "02/01/2020";
+            var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+
+            expect(weeks).to.equal(2035);
+        });
+
         describe('In US date format', () => {
             it('Should return 3365 weeks with dates between 10/31/1949 and 05/01/2014', () => {
                 var firstDate = "10/31/1949";
@@ -198,8 +206,7 @@ describe('Get Weeks', () => {
                 var secondMonth = 10;
                 var secondYear = 2016;
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getWeeks();
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getWeeks();
 
                 expect(result).to.equal(0);
             });

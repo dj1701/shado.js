@@ -51,6 +51,7 @@
         return {
             getYears: ns.date.getYears,
             getMonths: ns.date.getMonths,
+            getWeeks: ns.date.getWeeks,
             getDays: ns.date.getDays
         };
     };
@@ -80,6 +81,8 @@
         startDate = createDateFromUnits(startDay, startMonth, startYear);
         endDate = createDateFromUnits(endDay, endMonth, endYear);
         difference = getDifference(startDate, endDate);
+
+        return extensions();
     };
 
     ns.date.getYears = _ => {

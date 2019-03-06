@@ -271,8 +271,7 @@ describe('Get Days', () => {
                 var secondMonth = 10;
                 var secondYear = 2016;
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getDays(true);
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getDays(true);
 
                 expect(result).to.equal(1);
             });
