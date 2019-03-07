@@ -1,6 +1,6 @@
 {
   "name": "shado",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "This is a JavaScript Date Comparison Open Source Library to provide precise date comparison calculations between two dates for Years, Months, Days, Weeks, Hours, Minutes and Seconds. The aim of this library is to assist JavaScript Developers in taking away the pain of date handling in JavaScript.",
   "main": "release/shado-min.js",
   "scripts": {
