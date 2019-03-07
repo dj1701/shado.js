@@ -60,21 +60,21 @@ describe('Get Minutes', () => {
             expect(minutes).to.equal(23300640);
         });
 
-        it('Should return 7522560 minutes with dates between 01/01/2000 and 21/04/2014 including last day', () => {
+        it('Should return 7524000 minutes with dates between 01/01/2000 and 21/04/2014 including last day', () => {
             var firstDate = "01/01/2000";
             var secondDate = "21/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var minutes = shado.date.getMinutes(true);
 
-            expect(minutes).to.equal(7522560);
+            expect(minutes).to.equal(7524000);
         });
 
-        it('Should return 7521120 minutes with dates between 01/01/2000 and 21/04/2014 excluding last day', () => {
+        it('Should return 7522560  minutes with dates between 01/01/2000 and 21/04/2014 excluding last day', () => {
             var firstDate = "01/01/2000";
             var secondDate = "21/04/2014";
             var minutes = shado.date.setDates(firstDate, secondDate).getMinutes(false);
 
-            expect(minutes).to.equal(7521120);
+            expect(minutes).to.equal(7522560);
         });
 
         describe('In US date format', () => {

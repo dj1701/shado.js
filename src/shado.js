@@ -103,10 +103,10 @@
 
     ns.date.getDays = (includeLastDay) => ((((difference / oneDayDuration) + 0.5 ) << 1) >> 1 ) + (includeLastDay ? 1 : 0);
 
-    ns.date.getHours = (includeLastDay) => (((difference / oneDayDuration) | 0) * 24) + (includeLastDay ? 24 : 0);
+    ns.date.getHours = (includeLastDay) => (((((difference / oneDayDuration) + 0.5 ) << 1) >> 1) * 24) + (includeLastDay ? 24 : 0);
 
-    ns.date.getMinutes = (includeLastDay) => (((difference / oneDayDuration) | 0) * 24 + (includeLastDay ? 24 : 0)) * 60;
-
+    ns.date.getMinutes = (includeLastDay) => ((((((difference / oneDayDuration) + 0.5 ) << 1) >> 1) * 24) * 60) + (includeLastDay ? 1440 : 0);
+    
     ns.date.getSeconds = (includeLastDay) => (((((difference / oneDayDuration) + 0.5) << 1) >> 1) + (includeLastDay ? 1 : 0)) * 86400;
 
     ns.date.format = (date, formatPattern, useUsDateFormat) => {
