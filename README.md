@@ -101,7 +101,7 @@ Instructions on how to use
         var seconds = shado.date.setDates(firstDate, secondDate).getSeconds(false);
 
 4.  For Days, Hours, Minutes and Seconds there is one boolean parameter required.  This parameter indicates to include the last day in the calculation or not.
-    Therefore, true = include last day, false = exclude last day.  This is not optional.  This example shows the calculation methods called separately.
+    Therefore, true = include last day, false = exclude last day.  This is not optional for use of true.  This example shows the calculation methods called separately.
 
     Example:
 
