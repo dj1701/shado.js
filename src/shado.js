@@ -52,7 +52,10 @@
             getYears: ns.date.getYears,
             getMonths: ns.date.getMonths,
             getWeeks: ns.date.getWeeks,
-            getDays: ns.date.getDays
+            getDays: ns.date.getDays,
+            getHours: ns.date.getHours,
+            getMinutes: ns.date.getMinutes,
+            getSeconds: ns.date.getSeconds
         };
     };
 

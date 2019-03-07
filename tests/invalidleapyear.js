@@ -8,8 +8,7 @@ describe('Invalid Leap Year', () => {
     it('Should increment end date to 01/03/2015 if end date is 29/02/2015 - invalid leap year', () => {
         var firstDate = "27/06/2014";
         var secondDate = "29/02/2015";
-        shado.date.setDates(firstDate, secondDate);
-        var days = shado.date.getDays(false);
+        var days = shado.date.setDates(firstDate, secondDate).getDays(false);
 
         expect(days).to.equal(247);
     });
@@ -27,8 +26,7 @@ describe('Invalid Leap Year', () => {
         it('Should increment end date to 03/01/2015 if end date is 02/29/2015 - invalid leap year', () => {
             var firstDate = "06/27/2014";
             var secondDate = "02/29/2015";
-            shado.date.setDates(firstDate, secondDate, true);
-            var days = shado.date.getDays(false);
+            var days = shado.date.setDates(firstDate, secondDate, true).getDays(false);
 
             expect(days).to.equal(247);
         });

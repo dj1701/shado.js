@@ -72,8 +72,7 @@ describe('Get Minutes', () => {
         it('Should return 7521120 minutes with dates between 01/01/2000 and 21/04/2014 excluding last day', () => {
             var firstDate = "01/01/2000";
             var secondDate = "21/04/2014";
-            shado.date.setDates(firstDate, secondDate);
-            var minutes = shado.date.getMinutes(false);
+            var minutes = shado.date.setDates(firstDate, secondDate).getMinutes(false);
 
             expect(minutes).to.equal(7521120);
         });
@@ -144,8 +143,7 @@ describe('Get Minutes', () => {
                 var secondMonth = 12;
                 var secondYear = 2150;
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getMinutes(false);
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getMinutes(false);
 
                 expect(result).to.equal(132013440);
             });
@@ -266,8 +264,7 @@ describe('Get Minutes', () => {
                 var secondMonth = "1";
                 var secondYear = "2030";
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getMinutes(true);
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getMinutes(true);
 
                 expect(result).to.equal(1440);
             });

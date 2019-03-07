@@ -90,8 +90,7 @@ describe('Get Hours', () => {
         it('Should return 563688 hours with dates between 31/12/1949 and 21/04/2014 including last day', () => {
             var firstDate = "31/12/1949";
             var secondDate = "21/04/2014";
-            shado.date.setDates(firstDate, secondDate);
-            var hours = shado.date.getHours(true);
+            var hours = shado.date.setDates(firstDate, secondDate).getHours(true);
 
             expect(hours).to.equal(563688);
         });
@@ -162,8 +161,7 @@ describe('Get Hours', () => {
                 var secondMonth = 12;
                 var secondYear = 2150;
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getHours(false);
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getHours(false);
 
                 expect(result).to.equal(2200224);
             });
@@ -239,8 +237,7 @@ describe('Get Hours', () => {
                 var secondMonth = "12";
                 var secondYear = "2020";
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getHours(true);
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getHours(true);
 
                 expect(result).to.equal(876624);
             });

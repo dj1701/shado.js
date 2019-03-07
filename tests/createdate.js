@@ -29,6 +29,14 @@ describe('Create new date object', () => {
         expect(result).to.deep.equal(expectedDate);
     });
 
+    it('Should return new date object for given US date format of "07-19-2014"', () => {
+        var date = "07-19-2014";
+        var expectedDate = new Date(2014, 6, 19);
+
+        var result = shado.date.createDate(date, true);
+        expect(result).to.deep.equal(expectedDate);
+    });
+
     it('Should return new date object for current date', () => {
         var today = new Date();
         var date = "".concat(("0" + today.getDate()).slice(-2), '/', ("0" + (today.getMonth() + 1)).slice(-2), '/', today.getFullYear());
