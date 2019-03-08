@@ -47,6 +47,18 @@
 
     ns.date = ns.date || {};
 
+    var extensions = _ => {
+        return {
+            getYears: ns.date.getYears,
+            getMonths: ns.date.getMonths,
+            getWeeks: ns.date.getWeeks,
+            getDays: ns.date.getDays,
+            getHours: ns.date.getHours,
+            getMinutes: ns.date.getMinutes,
+            getSeconds: ns.date.getSeconds
+        };
+    };
+
     ns.date.createDate = (date, useUsDateFormat) => {
         if (Object.prototype.toString.call(date) === "[object String]") {
             var dateString = date.match(/^(\d{2})[\/|-](\d{2})[\/-](\d{4})/);
@@ -61,6 +73,8 @@
         startDate = ns.date.createDate(beginDate, useUsDateFormat);
         endDate = ns.date.createDate(finishDate, useUsDateFormat);
         difference = getDifference(startDate, endDate);
+
+        return extensions();
     };
 
     ns.date.setDatesByUnits = (startDay, startMonth, startYear, endDay, endMonth, endYear) => {
@@ -70,11 +84,13 @@
         startDate = createDateFromUnits(startDay, startMonth, startYear);
         endDate = createDateFromUnits(endDay, endMonth, endYear);
         difference = getDifference(startDate, endDate);
+
+        return extensions();
     };
 
     ns.date.getYears = _ => {
-        var result = (endDate.getFullYear() - startDate.getFullYear());
-        return (endDate.getDate() < startDate.getDate()) || (endDate.getMonth() < startDate.getMonth()) ? result -= 1 : result;
+        var diff = (endDate.getFullYear() - startDate.getFullYear());
+        return (endDate.getDate() < startDate.getDate()) || (endDate.getMonth() < startDate.getMonth()) ? diff -= 1 : diff;
     };
 
     ns.date.getMonths = _ => {
@@ -87,10 +103,10 @@
 
     ns.date.getDays = (includeLastDay) => ((((difference / oneDayDuration) + 0.5 ) << 1) >> 1 ) + (includeLastDay ? 1 : 0);
 
-    ns.date.getHours = (includeLastDay) => (((difference / oneDayDuration) | 0) * 24) + (includeLastDay ? 24 : 0);
+    ns.date.getHours = (includeLastDay) => (((((difference / oneDayDuration) + 0.5 ) << 1) >> 1) * 24) + (includeLastDay ? 24 : 0);
 
-    ns.date.getMinutes = (includeLastDay) => (((difference / oneDayDuration) | 0) * 24 + (includeLastDay ? 24 : 0)) * 60;
-
+    ns.date.getMinutes = (includeLastDay) => ((((((difference / oneDayDuration) + 0.5 ) << 1) >> 1) * 24) * 60) + (includeLastDay ? 1440 : 0);
+    
     ns.date.getSeconds = (includeLastDay) => (((((difference / oneDayDuration) + 0.5) << 1) >> 1) + (includeLastDay ? 1 : 0)) * 86400;
 
     ns.date.format = (date, formatPattern, useUsDateFormat) => {
@@ -133,7 +149,7 @@
         }
 
         return result;
-    }
+    };
 
 })(shado);
 

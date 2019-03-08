@@ -114,6 +114,14 @@ describe('Get Days', () => {
             expect(days).to.equal(1036);
         });
 
+        it('Should return 43527 days with dates between 01/01/1900 and 05/03/2019 excluding last day', () => {
+            var firstDate = "01/01/1900";
+            var secondDate = "05/03/2019";
+            var days = shado.date.setDates(firstDate, secondDate).getDays();
+
+            expect(days).to.equal(43527);
+        });
+
         describe('In US date format', () => {
             it('Should return 1036 days with dates between 01/20/1961 and 11/22/1963 excluding last day', () => {
                 var firstDate = "01/20/1961";
@@ -167,6 +175,14 @@ describe('Get Days', () => {
                 var days = shado.date.getDays(true);
 
                 expect(days).to.equal(100);
+            });
+
+            it('Should return 43528 days with dates between 01/01/1900 and 03/05/2019 including last day', () => {
+                var firstDate = "01/01/1900";
+                var secondDate = "03/05/2019";
+                var days = shado.date.setDates(firstDate, secondDate, true).getDays(true);
+    
+                expect(days).to.equal(43528);
             });
         });
 
@@ -255,8 +271,7 @@ describe('Get Days', () => {
                 var secondMonth = 10;
                 var secondYear = 2016;
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getDays(true);
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getDays(true);
 
                 expect(result).to.equal(1);
             });

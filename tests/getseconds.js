@@ -72,8 +72,7 @@ describe('Get Seconds', () => {
         it('Should return 3607545600 seconds with dates between 01/01/1900 and 27/04/2014 excluding last day', () => {
             var firstDate = "01/01/1900";
             var secondDate = "27/04/2014";
-            shado.date.setDates(firstDate, secondDate);
-            var seconds = shado.date.getSeconds(false);
+            var seconds = shado.date.setDates(firstDate, secondDate).getSeconds(false);
 
             expect(seconds).to.equal(3607545600);
         });
@@ -135,8 +134,7 @@ describe('Get Seconds', () => {
                 var secondMonth = 12;
                 var secondYear = 2150;
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getSeconds(false);
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getSeconds(false);
 
                 expect(result).to.equal(7920806400);
             });
@@ -227,8 +225,7 @@ describe('Get Seconds', () => {
                 var secondMonth = "01";
                 var secondYear = "2009";
 
-                shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-                var result = shado.date.getSeconds(true);
+                var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getSeconds(true);
 
                 expect(result).to.equal(86400);
             });
