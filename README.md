@@ -10,21 +10,6 @@ Latest stable version:
 
     npm install shado --save
 
-Commands to build and run tests
--------------------------------
-
-1.  npm install
-
-    Download all package dependences needed for creating the node_module folder.
-
-2.  npm run build:shado
-
-    Will minify the code using uglify-es to create the new file called shado-min.js in the release directory and run all the tests implemented in the js files found in the tests directory, which reads in from the minified shado-min.js file.
-
-3.  npm test
-
-    This will run all the tests implemented in the js files found in the test directory without the minification step.
-
 Instructions on how to use
 --------------------------
 
@@ -166,7 +151,7 @@ Date Formatting
 
         Supports Hydens -, forward lash / as separators, commas and blank spaces.
 
-Included with the library is the tests folder containing the js files developed to test drive the design of the shado.js code.  The Mocha Test Runner from npmjs.org is used to unit test each method.
+Included with the library is the tests folder containing the js files developed to test drive the design of the shado.js code.  The tests can be viewed in the git repository. The Mocha Test Runner from npmjs.org is used to unit test each method.
 
 It is intended that future versions will be released when time is available.  All I ask is constructive feedback is provided from your experience of using this library.  My email address is: dj1701.io@gmail.com
 
@@ -178,4 +163,4 @@ From shado.js v1.1.5 bug fixes have been applied allowing support for Node v4.0.
 Browser Support:
 ----------------
 
-Shado.js has been tested on the latest versions of Intenet Explorer, Firefox and Chrome. The minified file is recommended for production optimised download time and operation.
+Shado.js has been tested on the latest versions of Intenet Explorer, Firefox and Chrome. A minified version has been built for production optimised operation.
