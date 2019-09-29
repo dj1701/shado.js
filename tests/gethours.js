@@ -6,22 +6,31 @@ var expect = require('chai').expect;
 describe('Get Hours', () => {
 
     describe('Calculation difference in hours with two dates', () => {
-        it('Should return 343392 hours with dates between 18/02/1975 and 21/04/2014 including last day', () => {
+        it('Should return 5137 hours between 01/06/2014 and 01/01/2015 excluding last day', () => {
+            var firstDate = "01/06/2014";
+            var secondDate = "01/01/2015";
+            shado.date.setDates(firstDate, secondDate);
+            var hours = shado.date.getHours();
+
+            expect(hours).to.equal(5137);
+        });
+
+        it('Should return 343391 hours with dates between 18/02/1975 and 21/04/2014 including last day', () => {
             var firstDate = "18/02/1975";
             var secondDate = "21/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var hours = shado.date.getHours(true);
 
-            expect(hours).to.equal(343392);
+            expect(hours).to.equal(343391);
         });
 
-        it('Should return 343368 hours with dates between 18/02/1975 and 21/04/2014 excluding last day', () => {
+        it('Should return 343367 hours with dates between 18/02/1975 and 21/04/2014 excluding last day', () => {
             var firstDate = "18/02/1975";
             var secondDate = "21/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var hours = shado.date.getHours(false);
 
-            expect(hours).to.equal(343368);
+            expect(hours).to.equal(343367);
         });
 
         it('Should return 24 hours with dates between 01/01/2014 and 02/01/2014 excluding last day', () => {
@@ -42,22 +51,22 @@ describe('Get Hours', () => {
             expect(hours).to.equal(48);
         });
 
-        it('Should return 125400 hours with dates between 01/01/2000 and 21/04/2014 including last day', () => {
+        it('Should return 125399 hours with dates between 01/01/2000 and 21/04/2014 including last day', () => {
             var firstDate = "01/01/2000";
             var secondDate = "21/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var hours = shado.date.getHours(true);
 
-            expect(hours).to.equal(125400);
+            expect(hours).to.equal(125399);
         });
 
-        it('Should return 125376 hours with dates between 01/01/2000 and 21/04/2014 excluding last day', () => {
+        it('Should return 125375 hours with dates between 01/01/2000 and 21/04/2014 excluding last day', () => {
             var firstDate = "01/01/2000";
             var secondDate = "21/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var hours = shado.date.getHours(false);
 
-            expect(hours).to.equal(125376);
+            expect(hours).to.equal(125375);
         });
 
         it('Should return 388368 hours with dates between 01/01/1970 and 21/04/2014 including last day', () => {
@@ -78,31 +87,115 @@ describe('Get Hours', () => {
             expect(hours).to.equal(388344);
         });
 
-        it('Should return 563688 hours with dates between 31/12/1949 and 21/04/2014 excluding last day', () => {
+        it('Should return 563687 hours with dates between 31/12/1949 and 21/04/2014 excluding last day', () => {
             var firstDate = "31/12/1949";
             var secondDate = "21/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var hours = shado.date.getHours(false);
 
-            expect(hours).to.equal(563688);
+            expect(hours).to.equal(563687);
         });
 
-        it('Should return 563712 hours with dates between 31/12/1949 and 21/04/2014 including last day', () => {
+        it('Should return 563711 hours with dates between 31/12/1949 and 21/04/2014 including last day', () => {
             var firstDate = "31/12/1949";
             var secondDate = "21/04/2014";
             var hours = shado.date.setDates(firstDate, secondDate).getHours(true);
 
-            expect(hours).to.equal(563712);
+            expect(hours).to.equal(563711);
+        });
+
+        describe('with time segment', () => {
+            it('Should return 78888 hours with dates between 01/01/2010 01:00:00:000 and 01/01/2019 01:00:00.000', () => {
+                var firstDate = "01/01/2010 01:00:00:000";
+                var secondDate = "01/01/2019 01:00:00:000";
+                var hours = shado.date.setDates(firstDate, secondDate).getHours();
+    
+                expect(hours).to.equal(78888);
+            });
+
+            it('Should return 452224 hours with dates between 01/06/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                var firstDate = "01/06/1967 03:34:25:233";
+                var secondDate = "01/01/2019 19:32:44:12";
+                var hours = shado.date.setDates(firstDate, secondDate).getHours();
+    
+                expect(hours).to.equal(452224);
+            });
+
+            it('Should return 15 hours with dates between 01/01/2019 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                var firstDate = "01/01/2019 03:34:25:233";
+                var secondDate = "01/01/2019 19:32:44:12";
+                var hours = shado.date.setDates(firstDate, secondDate).getHours();
+    
+                expect(hours).to.equal(15);
+            });
+
+            describe('ISO 8601 format', () => {
+                it('Should return 43848 hours with ISO dates between 1999-06-10T14:50:25:545Z and 2004-06-10T14:50:25:545Z', () => {
+                    var firstDate = "1999-06-10T14:50:25:545Z";
+                    var secondDate = "2004-06-10T14:50:25:545Z";
+                    var hours = shado.date.setDates(firstDate, secondDate).getHours();
+        
+                    expect(hours).to.equal(43848);
+                });
+
+                it('Should return 43848 hours with ISO dates between 1999-06-10T14:50:25:545Z and 2004-06-10T14:50:25:545Z last day ignored as time part is provided', () => {
+                    var firstDate = "1999-06-10T14:50:25:545Z";
+                    var secondDate = "2004-06-10T14:50:25:545Z";
+                    var hours = shado.date.setDates(firstDate, secondDate).getHours(true);
+        
+                    expect(hours).to.equal(43848);
+                });
+
+                it('Should return 317812 hours with ISO dates between 1969-02-01T12:50:25:654Z and 2005-05-05T16:55:35:545Z', () => {
+                    var firstDate = "1969-02-01T12:50:25:654Z";
+                    var secondDate = "2005-05-05T16:55:35:545Z";
+                    var hours = shado.date.setDates(firstDate, secondDate).getHours();
+        
+                    expect(hours).to.equal(317812);
+                });
+
+                it('Should return 10995 hours with ISO dates between 2014-02-01T12:50:25:654Z and 2015-05-05T16:55:35:545Z', () => {
+                    var firstDate = "2014-02-01T12:50:25:654Z";
+                    var secondDate = "2015-05-05T16:55:35:545Z";
+                    var hours = shado.date.setDates(firstDate, secondDate).getHours();
+        
+                    expect(hours).to.equal(10995);
+                });
+
+                it('Should return 867819 hours with ISO dates between 2000-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2000-12-31T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var hours = shado.date.setDates(firstDate, secondDate).getHours();
+        
+                    expect(hours).to.equal(867819);
+                });
+
+                it('Should return 867795 hours with ISO dates between 2001-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2001-01-01T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var hours = shado.date.setDates(firstDate, secondDate).getHours();
+        
+                    expect(hours).to.equal(867795);
+                });
+
+                it('Should return 452224 hours with dates between 01/06/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                    var firstDate = "1967-06-01T03:34:25:233Z";
+                    var secondDate = "2019-01-01T19:32:44:12Z";
+                    var hours = shado.date.setDates(firstDate, secondDate).getHours();
+        
+                    expect(hours).to.equal(452224);
+                });
+            });
         });
 
         describe('In US date format', () => {
-            it('Should return 343368 hours with dates between 02/18/1975 and 04/21/2014 excluding last day', () => {
+            it('Should return 343367 hours with dates between 02/18/1975 and 04/21/2014 excluding last day', () => {
                 var firstDate = "02/18/1975";
                 var secondDate = "04/21/2014";
                 shado.date.setDates(firstDate, secondDate, true);
                 var hours = shado.date.getHours(false);
 
-                expect(hours).to.equal(343368);
+                expect(hours).to.equal(343367);
             });
 
             it('Should return 24 hours with dates between 01/01/2014 and 01/02/2014 excluding last day', () => {
@@ -114,13 +207,13 @@ describe('Get Hours', () => {
                 expect(hours).to.equal(24);
             });
 
-            it('Should return 125400 hours with dates between 01/01/2000 and 04/21/2014 including last day', () => {
+            it('Should return 125399 hours with dates between 01/01/2000 and 04/21/2014 including last day', () => {
                 var firstDate = "01/01/2000";
                 var secondDate = "04/21/2014";
                 shado.date.setDates(firstDate, secondDate, true);
                 var hours = shado.date.getHours(true);
 
-                expect(hours).to.equal(125400);
+                expect(hours).to.equal(125399);
             });
 
             it('Should return 388368 hours with dates between 01/01/1970 and 04/21/2014 including last day', () => {
@@ -141,22 +234,40 @@ describe('Get Hours', () => {
                 expect(hours).to.equal(388344);
             });
 
-            it('Should return 563688 hours with dates between 12/31/1949 and 04/21/2014 excluding last day', () => {
+            it('Should return 563687 hours with dates between 12/31/1949 and 04/21/2014 excluding last day', () => {
                 var firstDate = "12/31/1949";
                 var secondDate = "04/21/2014";
                 shado.date.setDates(firstDate, secondDate, true);
                 var hours = shado.date.getHours(false);
 
-                expect(hours).to.equal(563688);
+                expect(hours).to.equal(563687);
             });
 
-            it('Should return 563712 hours with dates between 12/31/1949 and 04/21/2014 including last day', () => {
+            it('Should return 563711 hours with dates between 12/31/1949 and 04/21/2014 including last day', () => {
                 var firstDate = "12/31/1949";
                 var secondDate = "04/21/2014";
                 shado.date.setDates(firstDate, secondDate, true);
                 var hours = shado.date.getHours(true);
 
-                expect(hours).to.equal(563712);
+                expect(hours).to.equal(563711);
+            });
+
+            describe('with time segment', () => {
+                it('Should return 96432 hours dates between 01/01/2008 01:00:00:000 and 01/01/2019 01:00:00:000', () => {
+                    var firstDate = "01/01/2008 01:00:00:000";
+                    var secondDate = "01/01/2019 01:00:00:000";
+                    var hours = shado.date.setDates(firstDate, secondDate, true).getHours();
+        
+                    expect(hours).to.equal(96432);
+                });
+    
+                it('Should return 452224 hours with dates between 06/01/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                    var firstDate = "06/01/1967 03:34:25:233";
+                    var secondDate = "01/01/2019 19:32:44:12";
+                    var hours = shado.date.setDates(firstDate, secondDate, true).getHours();
+        
+                    expect(hours).to.equal(452224);
+                });
             });
         });
 

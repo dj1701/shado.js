@@ -117,9 +117,76 @@ describe('Get Days', () => {
         it('Should return 43527 days with dates between 01/01/1900 and 05/03/2019 excluding last day', () => {
             var firstDate = "01/01/1900";
             var secondDate = "05/03/2019";
-            var days = shado.date.setDates(firstDate, secondDate).getDays();
+            var days = shado.date.setDates(firstDate, secondDate).getDays(false);
 
             expect(days).to.equal(43527);
+        });
+
+        describe('with time segment', () => {
+            it('Should return 3287 days with dates between 01/01/2010 01:00:00:000 and 01/01/2019 01:00:00.000', () => {
+                var firstDate = "01/01/2010 01:00:00:000";
+                var secondDate = "01/01/2019 01:00:00:000";
+                var days = shado.date.setDates(firstDate, secondDate).getDays(false);
+    
+                expect(days).to.equal(3287);
+            });
+
+            it('Should return 18842 days with dates between 01/06/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                var firstDate = "01/06/1967 03:34:25:233";
+                var secondDate = "01/01/2019 19:32:44:12";
+                var days = shado.date.setDates(firstDate, secondDate).getDays(false);
+    
+                expect(days).to.equal(18842);
+            });
+
+            describe('ISO 8601 format', () => {
+                it('Should return 1827 days with ISO dates between 1999-06-10T14:50:25:545Z and 2004-06-10T14:50:25:545Z', () => {
+                    var firstDate = "1999-06-10T14:50:25:545Z";
+                    var secondDate = "2004-06-10T14:50:25:545Z";
+                    var days = shado.date.setDates(firstDate, secondDate).getDays(false);
+        
+                    expect(days).to.equal(1827);
+                });
+                it('Should return 13242 days with ISO dates between 1969-02-01T12:50:25:654Z and 2005-05-05T16:55:35:545Z', () => {
+                    var firstDate = "1969-02-01T12:50:25:654Z";
+                    var secondDate = "2005-05-05T16:55:35:545Z";
+                    var days = shado.date.setDates(firstDate, secondDate).getDays(false);
+        
+                    expect(days).to.equal(13242);
+                });
+
+                it('Should return 458 days with ISO dates between 2014-02-01T12:50:25:654Z and 2015-05-05T16:55:35:545Z', () => {
+                    var firstDate = "2014-02-01T12:50:25:654Z";
+                    var secondDate = "2015-05-05T16:55:35:545Z";
+                    var days = shado.date.setDates(firstDate, secondDate).getDays(false);
+        
+                    expect(days).to.equal(458);
+                });
+
+                it('Should return 36159 days with ISO dates between 2000-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2000-12-31T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var days = shado.date.setDates(firstDate, secondDate).getDays(false);
+        
+                    expect(days).to.equal(36159);
+                });
+
+                it('Should return 36158 days with ISO dates between 2001-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2001-01-01T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var days = shado.date.setDates(firstDate, secondDate).getDays(false);
+        
+                    expect(days).to.equal(36158);
+                });
+
+                it('Should return 18842 days with dates between 1967-06-01T03:34:25:233Z and 2019-01-01T19:32:44:12Z', () => {
+                    var firstDate = "1967-06-01T03:34:25:233Z";
+                    var secondDate = "2019-01-01T19:32:44:12Z";
+                    var days = shado.date.setDates(firstDate, secondDate).getDays(false);
+        
+                    expect(days).to.equal(18842);
+                });
+            });
         });
 
         describe('In US date format', () => {
@@ -183,6 +250,24 @@ describe('Get Days', () => {
                 var days = shado.date.setDates(firstDate, secondDate, true).getDays(true);
     
                 expect(days).to.equal(43528);
+            });
+
+            describe('with time segment', () => {
+                it('Should return 4018 days dates between 01/01/2008 01:00:00:000 and 01/01/2019 01:00:00:000', () => {
+                    var firstDate = "01/01/2008 01:00:00:000";
+                    var secondDate = "01/01/2019 01:00:00:000";
+                    var days = shado.date.setDates(firstDate, secondDate, true).getDays(false);
+        
+                    expect(days).to.equal(4018);
+                });
+    
+                it('Should return 18842 days with dates between 06/01/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                    var firstDate = "06/01/1967 03:34:25:233";
+                    var secondDate = "01/01/2019 19:32:44:12";
+                    var days = shado.date.setDates(firstDate, secondDate, true).getDays(false);
+        
+                    expect(days).to.equal(18842);
+                });
             });
         });
 

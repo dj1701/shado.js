@@ -54,4 +54,25 @@ describe('Create new date object', () => {
         var result = shado.date.createDate(date, true);
         expect(result).to.deep.equal(expectedDate);
     });
+
+    describe('with time segment', () => {
+
+        it('Should return new date object for given date and time of "07/06/2019 14:34:45:010"', () => {
+            var date = "07/06/2019 14:34:45:10";
+            var expectedDate = new Date(2019, 5, 7, 14, 34, 45, 10);
+
+            var result = shado.date.createDate(date);
+            expect(result).to.deep.equal(expectedDate);
+        });
+        
+        it('Should return new date object for current date and time in US date format', () => {
+            var today = new Date();
+            var date = "".concat(("0" + (today.getMonth() + 1)).slice(-2), '/', ("0" + today.getDate()).slice(-2), '/', today.getFullYear(), ' ', ("0" + today.getHours()).slice(-2), ':', ("0" + today.getMinutes()).slice(-2), ':', ("0" + today.getSeconds()).slice(-2), ':', ("0" + today.getMilliseconds()).slice(-3));
+            var expectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(), today.getSeconds(), today.getMilliseconds());
+
+            var result = shado.date.createDate(date, true);
+            expect(result).to.deep.equal(expectedDate);
+        });
+
+    });
 });

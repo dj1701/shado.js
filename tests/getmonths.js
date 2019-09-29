@@ -104,6 +104,62 @@ describe('Get Months', () => {
             expect(months).to.equal(1430);
         });
 
+        describe('with time segment', () => {
+            it('Should return 108 months with dates between 01/01/2010 01:00:00:000 and 01/01/2019 01:00:00.000', () => {
+                var firstDate = "01/01/2010 01:00:00:000";
+                var secondDate = "01/01/2019 01:00:00:000";
+                var months = shado.date.setDates(firstDate, secondDate).getMonths();
+    
+                expect(months).to.equal(108);
+            });
+
+            it('Should return 619 months with dates between 01/06/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                var firstDate = "01/06/1967 03:34:25:233";
+                var secondDate = "01/01/2019 19:32:44:12";
+                var months = shado.date.setDates(firstDate, secondDate).getMonths();
+    
+                expect(months).to.equal(619);
+            });
+
+            describe('ISO 8601 format', () => {
+                it('Should return 60 months with ISO dates between 1999-06-10T14:50:25:545Z and 2004-06-10T14:50:25:545Z', () => {
+                    var firstDate = "1999-06-10T14:50:25:545Z";
+                    var secondDate = "2004-06-10T14:50:25:545Z";
+                    var months = shado.date.setDates(firstDate, secondDate).getMonths();
+        
+                    expect(months).to.equal(60);
+                });
+                it('Should return 435 months with ISO dates between 1969-02-01T12:50:25:654Z and 2005-05-05T16:55:35:545Z', () => {
+                    var firstDate = "1969-02-01T12:50:25:654Z";
+                    var secondDate = "2005-05-05T16:55:35:545Z";
+                    var months = shado.date.setDates(firstDate, secondDate).getMonths();
+        
+                    expect(months).to.equal(435);
+                });
+                it('Should return 15 months with ISO dates between 2014-02-01T12:50:25:654Z and 2015-05-05T16:55:35:545Z', () => {
+                    var firstDate = "2014-02-01T12:50:25:654Z";
+                    var secondDate = "2015-05-05T16:55:35:545Z";
+                    var months = shado.date.setDates(firstDate, secondDate).getMonths();
+        
+                    expect(months).to.equal(15);
+                });
+                it('Should return 1188 months with ISO dates between 2000-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2000-12-31T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var months = shado.date.setDates(firstDate, secondDate).getMonths()
+        
+                    expect(months).to.equal(1188);
+                });
+                it('Should return 1187 months with ISO dates between 2001-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2001-01-01T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var months = shado.date.setDates(firstDate, secondDate).getMonths();
+        
+                    expect(months).to.equal(1187);
+                });
+            });
+        });
+
         describe('In US date format', () => {
             it('Should return 470 months with dates between 02/18/1975 and 04/21/2014', () => {
                 var firstDate = "02/18/1975";
@@ -157,6 +213,24 @@ describe('Get Months', () => {
                 var months = shado.date.getMonths();
 
                 expect(months).to.equal(774);
+            });
+
+            describe('with time segment', () => {
+                it('Should return 132 months dates between 01/01/2008 01:00:00:000 and 01/01/2019 01:00:00:000', () => {
+                    var firstDate = "01/01/2008 01:00:00:000";
+                    var secondDate = "01/01/2019 01:00:00:000";
+                    var months = shado.date.setDates(firstDate, secondDate, true).getMonths();
+        
+                    expect(months).to.equal(132);
+                });
+    
+                it('Should return 619 months with dates between 06/01/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                    var firstDate = "06/01/1967 03:34:25:233";
+                    var secondDate = "01/01/2019 19:32:44:12";
+                    var months = shado.date.setDates(firstDate, secondDate, true).getMonths();
+        
+                    expect(months).to.equal(619);
+                });
             });
         });
 

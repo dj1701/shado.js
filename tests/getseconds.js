@@ -6,22 +6,22 @@ var expect = require('chai').expect;
 describe('Get Seconds', () => {
     
     describe('Calculation difference in seconds with two dates', () => {
-        it('Should return 451526400 seconds with dates between 01/01/2000 and 22/04/2014 including last day', () => {
+        it('Should return 451522800 seconds with dates between 01/01/2000 and 22/04/2014 including last day', () => {
             var firstDate = "01/01/2000";
             var secondDate = "22/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var seconds = shado.date.getSeconds(true);
-
-            expect(seconds).to.equal(451526400);
+            
+            expect(seconds).to.equal(451522800);
         });
 
-        it('Should return 451440000 seconds with dates between 01/01/2000 and 22/04/2014 excluding last day', () => {
+        it('Should return 451436400 seconds with dates between 01/01/2000 and 22/04/2014 excluding last day', () => {
             var firstDate = "01/01/2000";
             var secondDate = "22/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var seconds = shado.date.getSeconds(false);
-
-            expect(seconds).to.equal(451440000);
+            
+            expect(seconds).to.equal(451436400);
         });
 
         it('Should return 1398211200 seconds with dates between 01/01/1970 and 22/04/2014 including last day', () => {
@@ -60,21 +60,105 @@ describe('Get Seconds', () => {
             expect(seconds).to.equal(604800);
         });
 
-        it('Should return 3607632000 seconds with dates between 01/01/1900 and 27/04/2014 including last day', () => {
+        it('Should return 3607628400 seconds with dates between 01/01/1900 and 27/04/2014 including last day', () => {
             var firstDate = "01/01/1900";
             var secondDate = "27/04/2014";
             shado.date.setDates(firstDate, secondDate);
             var seconds = shado.date.getSeconds(true);
-
-            expect(seconds).to.equal(3607632000);
+            
+            expect(seconds).to.equal(3607628400);
         });
 
-        it('Should return 3607545600 seconds with dates between 01/01/1900 and 27/04/2014 excluding last day', () => {
+        it('Should return 3607542000 seconds with dates between 01/01/1900 and 27/04/2014 excluding last day', () => {
             var firstDate = "01/01/1900";
             var secondDate = "27/04/2014";
             var seconds = shado.date.setDates(firstDate, secondDate).getSeconds(false);
+            
+            expect(seconds).to.equal(3607542000);
+        });
 
-            expect(seconds).to.equal(3607545600);
+        describe('with time segment', () => {
+            it('Should return 283996800 seconds with dates between 01/01/2010 01:00:00:000 and 01/01/2019 01:00:00.000', () => {
+                var firstDate = "01/01/2010 01:00:00:000";
+                var secondDate = "01/01/2019 01:00:00:000";
+                var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+    
+                expect(seconds).to.equal(283996800);
+            });
+
+            it('Should return 1628009880 seconds with dates between 01/06/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                var firstDate = "01/06/1967 03:34:25:233";
+                var secondDate = "01/01/2019 19:32:44:12";
+                var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+
+                expect(seconds).to.equal(1628009880);
+            });
+
+            it('Should return 57480 seconds with dates between 01/01/2019 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                var firstDate = "01/01/2019 03:34:25:233";
+                var secondDate = "01/01/2019 19:32:44:12";
+                var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+    
+                expect(seconds).to.equal(57480);
+            });
+
+            describe('ISO 8601 format', () => {
+                it('Should return 157852800 seconds with ISO dates between 1999-06-10T14:50:25:545Z and 2004-06-10T14:50:25:545Z', () => {
+                    var firstDate = "1999-06-10T14:50:25:545Z";
+                    var secondDate = "2004-06-10T14:50:25:545Z";
+                    var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+        
+                    expect(seconds).to.equal(157852800);
+                });
+
+                it('Should return 157939200 seconds with ISO dates between 1999-06-10T14:50:25:545Z and 2004-06-10T14:50:25:545Z ignored last day as time is provided', () => {
+                    var firstDate = "1999-06-10T14:50:25:545Z";
+                    var secondDate = "2004-06-10T14:50:25:545Z";
+                    var seconds = shado.date.setDates(firstDate, secondDate).getSeconds(true);
+        
+                    expect(seconds).to.equal(157852800);
+                });
+
+                it('Should return 1144123500 seconds with ISO dates between 1969-02-01T12:50:25:654Z and 2005-05-05T16:55:35:545Z', () => {
+                    var firstDate = "1969-02-01T12:50:25:654Z";
+                    var secondDate = "2005-05-05T16:55:35:545Z";
+                    var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+        
+                    expect(seconds).to.equal(1144123500);
+                });
+
+                it('Should return 39582300 seconds with ISO dates between 2014-02-01T12:50:25:654Z and 2015-05-05T16:55:35:545Z', () => {
+                    var firstDate = "2014-02-01T12:50:25:654Z";
+                    var secondDate = "2015-05-05T16:55:35:545Z";
+                    var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+        
+                    expect(seconds).to.equal(39582300);
+                });
+
+                it('Should return 3124151700 seconds with ISO dates between 2000-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2000-12-31T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+        
+                    expect(seconds).to.equal(3124151700);
+                });
+
+                it('Should return 3124065300 seconds with ISO dates between 2001-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2001-01-01T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+        
+                    expect(seconds).to.equal(3124065300);
+                });
+
+                it('Should return 1628009880 seconds with dates between 01/06/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                    var firstDate = "1967-06-01T03:34:25:233Z";
+                    var secondDate = "2019-01-01T19:32:44:12Z";
+                    var seconds = shado.date.setDates(firstDate, secondDate).getSeconds();
+        
+                    expect(seconds).to.equal(1628009880);
+                });
+            });
         });
 
         describe('In US date format', () => {
@@ -114,13 +198,31 @@ describe('Get Seconds', () => {
                 expect(seconds).to.equal(604800);
             });
 
-            it('Should return 3607545600 seconds with dates between 01/01/1900 and 04/27/2014 excluding last day', () => {
+            it('Should return 3607542000 seconds with dates between 01/01/1900 and 04/27/2014 excluding last day', () => {
                 var firstDate = "01/01/1900";
                 var secondDate = "04/27/2014";
                 shado.date.setDates(firstDate, secondDate, true);
                 var seconds = shado.date.getSeconds(false);
+                
+                expect(seconds).to.equal(3607542000);
+            });
 
-                expect(seconds).to.equal(3607545600);
+            describe('with time segment', () => {
+                it('Should return 347155200 seconds dates between 01/01/2008 01:00:00:000 and 01/01/2019 01:00:00:000', () => {
+                    var firstDate = "01/01/2008 01:00:00:000";
+                    var secondDate = "01/01/2019 01:00:00:000";
+                    var seconds = shado.date.setDates(firstDate, secondDate, true).getSeconds();
+        
+                    expect(seconds).to.equal(347155200);
+                });
+    
+                it('Should return 1628009880 seconds with dates between 06/01/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                    var firstDate = "06/01/1967 03:34:25:233";
+                    var secondDate = "01/01/2019 19:32:44:12";
+                    var seconds = shado.date.setDates(firstDate, secondDate, true).getSeconds();
+        
+                    expect(seconds).to.equal(1628009880);
+                });
             });
         });
 

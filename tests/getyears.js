@@ -42,8 +42,8 @@ describe('Get Years', () => {
             expect(years).to.equal(23);
         });
 
-        it('Should return 16 years with dates between 30/04/1997 and 29/03/2014', () => {
-            var firstDate = "30/04/1997";
+        it('Should return 16 years with dates between 30-04-1997 and 29/03/2014', () => {
+            var firstDate = "30-04-1997";
             var secondDate = "29/03/2014";
             shado.date.setDates(firstDate, secondDate);
             var years = shado.date.getYears();
@@ -51,9 +51,9 @@ describe('Get Years', () => {
             expect(years).to.equal(16);
         });
 
-        it('Should return 16 years with dates between 31/12/1969 and 01/01/1986', () => {
+        it('Should return 16 years with dates between 31/12/1969 and 01-01-1986', () => {
             var firstDate = "31/12/1969";
-            var secondDate = "01/01/1986";
+            var secondDate = "01-01-1986";
             shado.date.setDates(firstDate, secondDate);
             var years = shado.date.getYears();
 
@@ -122,6 +122,62 @@ describe('Get Years', () => {
             expect(years).to.equal(9);
         });
 
+        describe('with time segment', () => {
+            it('Should return 9 years with dates between 01/01/2010 01:00:00:000 and 01/01/2019 01:00:00.000', () => {
+                var firstDate = "01/01/2010 01:00:00:000";
+                var secondDate = "01/01/2019 01:00:00:000";
+                var years = shado.date.setDates(firstDate, secondDate).getYears();
+    
+                expect(years).to.equal(9);
+            });
+
+            it('Should return 51 years with dates between 01/06/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                var firstDate = "01/06/1967 03:34:25:233";
+                var secondDate = "01/01/2019 19:32:44:12";
+                var years = shado.date.setDates(firstDate, secondDate).getYears();
+    
+                expect(years).to.equal(51);
+            });
+
+            describe('ISO 8601 format', () => {
+                it('Should return 5 years with ISO dates between 1999-06-10T14:50:25:545Z and 2004-06-10T14:50:25:545Z', () => {
+                    var firstDate = "1999-06-10T14:50:25:545Z";
+                    var secondDate = "2004-06-10T14:50:25:545Z";
+                    var years = shado.date.setDates(firstDate, secondDate).getYears();
+        
+                    expect(years).to.equal(5);
+                });
+                it('Should return 36 years with ISO dates between 1969-02-01T12:50:25:654Z and 2005-05-05T16:55:35:545Z', () => {
+                    var firstDate = "1969-02-01T12:50:25:654Z";
+                    var secondDate = "2005-05-05T16:55:35:545Z";
+                    var years = shado.date.setDates(firstDate, secondDate).getYears();
+        
+                    expect(years).to.equal(36);
+                });
+                it('Should return 1 year with ISO dates between 2014-02-01T12:50:25:654Z and 2015-05-05T16:55:35:545Z', () => {
+                    var firstDate = "2014-02-01T12:50:25:654Z";
+                    var secondDate = "2015-05-05T16:55:35:545Z";
+                    var years = shado.date.setDates(firstDate, secondDate).getYears();
+        
+                    expect(years).to.equal(1);
+                });
+                it('Should return 99 years with ISO dates between 2000-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2000-12-31T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var years = shado.date.setDates(firstDate, secondDate).getYears();
+        
+                    expect(years).to.equal(99);
+                });
+                it('Should return 99 years with ISO dates between 2001-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2001-01-01T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var years = shado.date.setDates(firstDate, secondDate).getYears();
+        
+                    expect(years).to.equal(98);
+                });
+            });
+        });
+
         describe('In US date format', () => {
             it('Should return 23 years with dates between 10/30/1990 and 03/29/2014', () => {
                 var firstDate = "10/30/1990";
@@ -166,6 +222,24 @@ describe('Get Years', () => {
                 var years = shado.date.getYears();
 
                 expect(years).to.equal(25);
+            });
+
+            describe('with time segment', () => {
+                it('Should return 11 years with dates between 01/01/2008 01:00:00:000 and 01/01/2019 01:00:00:000', () => {
+                    var firstDate = "01/01/2008 01:00:00:000";
+                    var secondDate = "01/01/2019 01:00:00:000";
+                    var years = shado.date.setDates(firstDate, secondDate, true).getYears();
+        
+                    expect(years).to.equal(11);
+                });
+    
+                it('Should return 51 years with dates between 06/01/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                    var firstDate = "06/01/1967 03:34:25:233";
+                    var secondDate = "01/01/2019 19:32:44:12";
+                    var years = shado.date.setDates(firstDate, secondDate, true).getYears();
+        
+                    expect(years).to.equal(51);
+                });
             });
         });
 

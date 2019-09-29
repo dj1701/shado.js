@@ -6,8 +6,10 @@
     var difference = 0;
     var startDate = 0;
     var endDate = 0;
+    var timeSegmentPresent = false;
 
-    var validateParamatersByBothStartAndEndDate = (beginDate, endDate) => {
+
+    var validateParamaters = (beginDate, endDate) => {
         var isInvalidFirstDateParams = (Object.prototype.toString.call(beginDate) !== "[object String]" && Object.prototype.toString.call(beginDate) !== "[object Date]");
         var isInvalidSecondDateParams = (Object.prototype.toString.call(endDate) !== "[object String]" && Object.prototype.toString.call(endDate) !== "[object Date]");
         if (isInvalidFirstDateParams || isInvalidSecondDateParams) throw new Error('Parameters are expecting type string or date');
@@ -21,6 +23,7 @@
     };
 
     var createDateFromUnits = (day, month, year) => {
+        timeSegmentPresent = false;
         return new Date(year, month - 1, day);
     };
 
@@ -32,16 +35,26 @@
         var monthNames = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
         var dayNames = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
 
-        var applyLeadingZero = (unit) => (unit < 0 || unit > 9 ? "" : "0") + unit;
+        var applyLeadingZero = (unit, leadingZeroLength) => {
+            var result = unit.toString();
+            while (result.length <= leadingZeroLength) {result = "0" + result;}
+            return result; 
+        }
+
         var ordinalIndicatorSuffix = (day) => {var result = day % 10;if (result === 1) {return day + "st";}if (result === 2) {return day + "nd";}if(result === 3) {return day + "rd";}return day + "th";}
         var month = date.getMonth() + 1;
         var day = date.getDate();
         var dayOfWeek = date.getDay();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        var milliseconds = date.getMilliseconds();
         return {
-            "d": day, "dd": applyLeadingZero(day), "M": applyLeadingZero(month), "MM": applyLeadingZero(month),
+            "d": day, "dd": applyLeadingZero(day,1), "M": applyLeadingZero(month,1), "MM": applyLeadingZero(month,1),
             "MMM": monthNames[month + 11], "MMMM": monthNames[month - 1], "yyyy": date.getFullYear().toString(),
             "yy": date.getFullYear().toString().slice(2), "OI": ordinalIndicatorSuffix(day),
-            "DDD": dayNames[dayOfWeek + 7], "DDDD": dayNames[dayOfWeek]
+            "DDD": dayNames[dayOfWeek + 7], "DDDD": dayNames[dayOfWeek],
+            "HH": applyLeadingZero(hours,1), "h": hours, "mm": applyLeadingZero(minutes,1), "SS": applyLeadingZero(seconds,1), "sss": applyLeadingZero(milliseconds,2)
         };
     }
 
@@ -61,14 +74,32 @@
 
     ns.date.createDate = (date, useUsDateFormat) => {
         if (Object.prototype.toString.call(date) === "[object String]") {
-            var dateString = date.match(/^(\d{2})[\/|-](\d{2})[\/-](\d{4})/);
-            return useUsDateFormat ? new Date(dateString[3], dateString[1] - 1, dateString[2]) : new Date(dateString[3], dateString[2] - 1, dateString[1]);
+            var customPatten = /^(\d{2})[\/|-](\d{2})[\/-](\d{4}) (\d{1,2}):(\d{2}):(\d{2})(?::(\d{1,3}))?/;
+            if(customPatten.test(date)){
+                timeSegmentPresent = true;
+                var dateString = date.match(customPatten);
+                return useUsDateFormat ? new Date(dateString[3], dateString[1] - 1, dateString[2], (dateString[4]|0), (dateString[5]|0), (dateString[6]|0), (dateString[7]|0))
+                     : new Date(dateString[3], dateString[2] - 1, dateString[1], (dateString[4]|0), (dateString[5]|0), (dateString[6]|0), (dateString[7]|0));
+            }
+            var isoPattern = /^(\d{4})-(\d{2})-(\d{2})[T](\d{2}):(\d{2}):(\d{2}):(\d{1,3})[Z]/;
+            if(isoPattern.test(date)){
+                timeSegmentPresent = true;
+                var dateString = date.match(isoPattern);
+                return new Date(dateString[1], dateString[2] - 1, dateString[3], dateString[4], dateString[5], dateString[6], dateString[7]);
+            }
+            var dateSegmentOnlyPattern = /^(\d{2})[\/|-](\d{2})[\/-](\d{4})/;
+            if(dateSegmentOnlyPattern.test(date)) {
+                timeSegmentPresent = false;
+                var dateString = date.match(dateSegmentOnlyPattern);
+                return useUsDateFormat ? new Date(dateString[3], dateString[1] - 1, dateString[2]) : new Date(dateString[3], dateString[2] - 1, dateString[1]);
+            }
+            throw new Error('Invalid date/time pattern provided');
         }
         return date;
     };
 
     ns.date.setDates = (beginDate, finishDate, useUsDateFormat) => {
-        validateParamatersByBothStartAndEndDate(beginDate, finishDate);
+        validateParamaters(beginDate, finishDate);
 
         startDate = ns.date.createDate(beginDate, useUsDateFormat);
         endDate = ns.date.createDate(finishDate, useUsDateFormat);
@@ -101,13 +132,20 @@
 
     ns.date.getWeeks = _ => ((((difference / oneDayDuration) + 0.5) << 1 ) >> 1 ) / 7 | 0;
 
-    ns.date.getDays = (includeLastDay) => ((((difference / oneDayDuration) + 0.5 ) << 1) >> 1 ) + (includeLastDay ? 1 : 0);
+    ns.date.getDays = (includeLastDay) => {
+        if(timeSegmentPresent){
+            var revisedEndDate = new Date(endDate.toDateString());
+            var revisedStartDate = new Date(startDate.toDateString());
+            return (((((revisedEndDate - revisedStartDate) / oneDayDuration) + 0.5) << 1) >> 1) + (includeLastDay ? 1 : 0);
+        }
+        return ((((difference / oneDayDuration) + 0.5) << 1) >> 1) + (includeLastDay ? 1 : 0);
+    }
 
-    ns.date.getHours = (includeLastDay) => (((((difference / oneDayDuration) + 0.5 ) << 1) >> 1) * 24) + (includeLastDay ? 24 : 0);
-
-    ns.date.getMinutes = (includeLastDay) => ((((((difference / oneDayDuration) + 0.5 ) << 1) >> 1) * 24) * 60) + (includeLastDay ? 1440 : 0);
+    ns.date.getHours = (includeLastDay) => ((((difference / oneDayDuration) * 24) << 1) >> 1) + ((includeLastDay && !timeSegmentPresent) ? 24 : 0);
     
-    ns.date.getSeconds = (includeLastDay) => (((((difference / oneDayDuration) + 0.5) << 1) >> 1) + (includeLastDay ? 1 : 0)) * 86400;
+    ns.date.getMinutes = (includeLastDay) => (((((difference / oneDayDuration) * 24) * 60) << 1) >> 1) + ((includeLastDay && !timeSegmentPresent) ? 1440 : 0);
+
+    ns.date.getSeconds = (includeLastDay) => ((((((difference / oneDayDuration) * 24) * 60) << 1) >> 1) * 60) + ((includeLastDay && !timeSegmentPresent) ? 86400 : 0);
 
     ns.date.format = (date, formatPattern, useUsDateFormat) => {
         var isInvalidDate =
