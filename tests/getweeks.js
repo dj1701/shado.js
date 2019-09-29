@@ -104,6 +104,74 @@ describe('Get Weeks', () => {
             expect(weeks).to.equal(2035);
         });
 
+        describe('with time segment', () => {
+            it('Should return 469 weeks with dates between 01/01/2010 01:00:00:000 and 01/01/2019 01:00:00.000', () => {
+                var firstDate = "01/01/2010 01:00:00:000";
+                var secondDate = "01/01/2019 01:00:00:000";
+                var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+    
+                expect(weeks).to.equal(469);
+            });
+
+            it('Should return 2691 weeks with dates between 01/06/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                var firstDate = "01/06/1967 03:34:25:233";
+                var secondDate = "01/01/2019 19:32:44:12";
+                var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+    
+                expect(weeks).to.equal(2691);
+            });
+
+            describe('ISO 8601 format', () => {
+                it('Should return 261 weeks with ISO dates between 1999-06-10T14:50:25:545Z and 2004-06-10T14:50:25:545Z', () => {
+                    var firstDate = "1999-06-10T14:50:25:545Z";
+                    var secondDate = "2004-06-10T14:50:25:545Z";
+                    var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+        
+                    expect(weeks).to.equal(261);
+                });
+
+                it('Should return 1891 weeks with ISO dates between 1969-02-01T12:50:25:654Z and 2005-05-05T16:55:35:545Z', () => {
+                    var firstDate = "1969-02-01T12:50:25:654Z";
+                    var secondDate = "2005-05-05T16:55:35:545Z";
+                    var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+        
+                    expect(weeks).to.equal(1891);
+                });
+
+                it('Should return 65 weeks with ISO dates between 2014-02-01T12:50:25:654Z and 2015-05-05T16:55:35:545Z', () => {
+                    var firstDate = "2014-02-01T12:50:25:654Z";
+                    var secondDate = "2015-05-05T16:55:35:545Z";
+                    var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+        
+                    expect(weeks).to.equal(65);
+                });
+
+                it('Should return 5165 weeks with ISO dates between 2000-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2000-12-31T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+        
+                    expect(weeks).to.equal(5165);
+                });
+
+                it('Should return 5165 weeks with ISO dates between 2001-12-31T12:50:25:654 and 2099-12-31T16:45:35:545Z', () => {
+                    var firstDate = "2001-01-01T12:50:25:654Z";
+                    var secondDate = "2099-12-31T16:45:35:545Z";
+                    var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+        
+                    expect(weeks).to.equal(5165);
+                });
+
+                it('Should return 2691 weeks with dates between 1967-06-01T03:34:25:233Z and 2019-01-01T19:32:44:12Z', () => {
+                    var firstDate = "1967-06-01T03:34:25:233Z";
+                    var secondDate = "2019-01-01T19:32:44:12Z";
+                    var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
+        
+                    expect(weeks).to.equal(2691);
+                });
+            });
+        });
+
         describe('In US date format', () => {
             it('Should return 3365 weeks with dates between 10/31/1949 and 05/01/2014', () => {
                 var firstDate = "10/31/1949";
@@ -148,6 +216,24 @@ describe('Get Weeks', () => {
                 var weeks = shado.date.getWeeks();
 
                 expect(weeks).to.equal(148);
+            });
+
+            describe('with time segment', () => {
+                it('Should return 574 weeks dates between 01/01/2008 01:00:00:000 and 01/01/2019 01:00:00:000', () => {
+                    var firstDate = "01/01/2008 01:00:00:000";
+                    var secondDate = "01/01/2019 01:00:00:000";
+                    var weeks = shado.date.setDates(firstDate, secondDate, true).getWeeks();
+        
+                    expect(weeks).to.equal(574);
+                });
+    
+                it('Should return 2691 weeks with dates between 06/01/1967 03:34:25:233 and 01/01/2019 19:32:44:12', () => {
+                    var firstDate = "06/01/1967 03:34:25:233";
+                    var secondDate = "01/01/2019 19:32:44:12";
+                    var weeks = shado.date.setDates(firstDate, secondDate, true).getWeeks();
+        
+                    expect(weeks).to.equal(2691);
+                });
             });
         });
 

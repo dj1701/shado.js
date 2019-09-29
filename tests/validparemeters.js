@@ -24,13 +24,13 @@ describe('Valid Parameters', () => {
             }).not.to.throw('Parameters are not of expected type string or date');
         });
 
-        it('Should return 451440000 seconds with dates object parameters between 01/01/2000 and 22/04/2014 excluding last day', () => {
+        it('Should return 451436400 seconds with dates object parameters between 01/01/2000 and 22/04/2014 excluding last day', () => {
             var firstDate = new Date(2000, 0, 1);
             var secondDate = new Date(2014, 3, 22);
             shado.date.setDates(firstDate, secondDate);
             var seconds = shado.date.getSeconds(false);
 
-            expect(seconds).to.equal(451440000);
+            expect(seconds).to.equal(451436400);
         });
     });
 
@@ -77,7 +77,7 @@ describe('Valid Parameters', () => {
             }).not.to.throw('Parameters are expecting type number or string');
         });
 
-        it('Should return 451440000 seconds with dates object parameters between 01/01/2000 and 22/04/2014 excluding last day', () => {
+        it('Should return 451436400 seconds with dates object parameters between 01/01/2000 and 22/04/2014 excluding last day', () => {
             var firstDay = 1;
             var firstMonth = 1;
             var firstYear = 2000;
@@ -89,7 +89,7 @@ describe('Valid Parameters', () => {
             shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
             var seconds = shado.date.getSeconds(false);
 
-            expect(seconds).to.equal(451440000);
+            expect(seconds).to.equal(451436400);
         });
     });
 });

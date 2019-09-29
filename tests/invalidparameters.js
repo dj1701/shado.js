@@ -32,6 +32,24 @@ describe('Invalid Parameters', () => {
                 shado.date.setDates(firstDate, secondDate);
             }).to.throw('Parameters are expecting type string or date');
         });
+
+        it('Should raise exception when firstDate contains invalid date format', () => {
+            var firstDate = "1999-06-10T14:50:25:545";
+            var secondDate = "2004-06-10T14:50:25:545Z";
+
+            expect(() => {
+                shado.date.setDates(firstDate, secondDate)
+            }).to.throw('Invalid date/time pattern provided');
+        });
+
+        it('Should raise exception when secondDate contains invalid date format', () => {
+            var firstDate = "1999-06-10T14:50:25:545";
+            var secondDate = "2004-06-10T14TEST:25:545Z";
+
+            expect(() => {
+                shado.date.setDates(firstDate, secondDate)
+            }).to.throw('Invalid date/time pattern provided');
+        });
     });
 
     describe('for the method setDatesByUnit', () => {
