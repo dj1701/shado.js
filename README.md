@@ -13,15 +13,15 @@ Latest stable version:
 Instructions on how to use
 --------------------------
 
-1.  The setDates Method
+1.  The set Method (Previously named setDates)
 
-    The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date Format.  The default is the UK date format.  Both date parameters can be a string or JavaScript Date Object.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the setDates method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either parameter is not a string and date type, an exception will be raised with the error message of ‘Parameters are expecting type string or date’.
+    The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date Format.  The default is the UK date format.  Both date parameters can be a string or JavaScript Date Object.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the set method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either parameter is not a string and date type, an exception will be raised with the error message of ‘Parameters are expecting type string or date’.
 
-    From shado.js version 1.1.5 the setDates method returns the methods allowing the use of dot notation (method chaining) in one line of code as described in section 3.  Functionality remains in place allowing calls to the calculation methods to be made separately as described in section 4.
+    The set method returns the methods allowing the use of dot notation (method chaining) in one line of code as described in section 3.  Functionality remains in place allowing calls to the calculation methods to be made separately as described in section 4.
 
     Supported Date/Time Formats
 
-    As of version 1.2.0 the setDates method supports the inclusion of the time segment with the date.  The ISO-8601 standard is implemented alongside two other formats for both start and end date parameters.  An exception is raised with the error message of 'Invalid date/time pattern provided' if a date or time is provided in a different format that is not supported.
+    The set method supports the inclusion of the time segment with the date.  The ISO-8601 standard is implemented alongside two other formats for both start and end date parameters.  An exception is raised with the error message of 'Invalid date/time pattern provided' if a date or time is provided in a different format that is not supported.
 
         1999-06-10T14:50:25:545Z - IS0-8601 Standard
         01/06/1967 03:34:25:233  - Date with time segment
@@ -33,91 +33,97 @@ Instructions on how to use
 
         var shado = require("shado");
 
-        var firstDate = "01-01-1970";
-        var secondDate = "01/01/1986";
-        var result = shado.date.setDates(firstDate, secondDate).getDays(false);
+        var startDate = "01-01-1970";
+        var endDate = "01/01/1986";
+        var result = shado.date.set(startDate, endDate).getDays(false);
 
     Example ISO-8601 Format using string parameters:
 
         var shado = require("shado");
 
-        var firstDate = "1999-06-10T14:50:25:545Z";
-        var secondDate = "2019-04-11T16:34:28:019Z";
-        var result = shado.date.setDates(firstDate, secondDate).getDays(false);
+        var startDate = "1999-06-10T14:50:25:545Z";
+        var endDate = "2019-04-11T16:34:28:019Z";
+        var result = shado.date.set(startDate, endDate).getDays(false);
 
     Example UK Date/Time Format using string parameters:
 
         var shado = require("shado");
 
-        var firstDate = "01-01-1970 03:34:25:233";
-        var secondDate = "01/01/1986 15:55:45:239";
-        var result = shado.date.setDates(firstDate, secondDate).getMinutes();
+        var startDate = "01-01-1970 03:34:25:233";
+        var endDate = "01/01/1986 15:55:45:239";
+        var result = shado.date.set(startDate, endDate).getMinutes();
 
     Example US Date Format using string parameters:
 
         var shado = require("shado");
 
-        var firstDate = "02/01/1970";
-        var secondDate = "10/01/1986";
-        var result = shado.date.setDates(firstDate, secondDate, true).getDays(true);
+        var startDate = "02/01/1970";
+        var endDate = "10/01/1986";
+        var result = shado.date.set(startDate, endDate, true).getDays(true);
 
     Example of Date Object parameters:
 
         var shado = require("shado");
 
-        var firstDate = new Date(2000, 0, 1);
-        var secondDate = new Date(2014, 3, 22);
-        var result = shado.date.setDates(firstDate, secondDate).getWeeks();
+        var startDate = new Date(2000, 0, 1);
+        var endDate = new Date(2014, 3, 22);
+        var result = shado.date.set(startDate, endDate).getWeeks();
 
     Example of mixed types of string and instantiated date object:
 
         var shado = require("shado");
 
-        var firstDate = "01/01/1970";
-        var secondDate = new Date(2014, 3, 27);
-        var result = shado.date.setDates(firstDate, secondDate).getYears();
+        var startDate = "01/01/1970";
+        var endDate = new Date(2014, 3, 27);
+        var result = shado.date.set(startDate, endDate).getYears();
 
-2.  The setDatesByUnits Method
+2.  The setParams Method (Previously named setDatesByUnits)
 
-    This method allows individual date units of Day, Month and Year to be passed in as separate parameters, providing additional option as to date input.  The parameter type can be a number or string.  The string numbers can have an optional 0 prefix on them, for example ‘01’.  As with the setDates method, the setDatesByUnits method does not require the use of the "new" key word to instantiate the object.   If the parameters are not a number or string type, an exception will be raised with the error message of ‘Parameters are expecting type number or string’.
+    This method allows individual date units of Day, Month, Year, Hour, Minute and Seconds to be passed in as separate parameters, providing additional option as to date input.  The parameter type can be a number or string.  The string numbers can have an optional 0 prefix on them, for example ‘01’.  As with the set method, the setParams method does not require the use of the "new" key word to instantiate the object.   If the parameters are not a number and string type, an exception will be raised with the error message of ‘Parameters are expecting type number or string’.
 
-    From shado.js version v1.1.5 the setDatesByUnits method returns the methods allowing the use of dot notation (method chaining) in one line of code.  Functionality remains in place allowing calls to the calculation methods to be made separately as described in section 4.  This method does not support the time segment, this will be implemented in the next version.
+    The setParams method returns the methods allowing the use of dot notation (method chaining) in one line of code as seen in the example below calling getYears().  Functionality remains in place allowing calls to the calculation methods to be made separately as described in section 4.
 
-    Example of the setDatesByUnits method:
+    Example of the setParams method:
 
         var shado = require("shado");
 
-        var firstDay = 31;
-        var firstMonth = 12;
-        var firstYear = 1899;
-        var secondDay = 31;
-        var secondMonth = 12;
-        var secondYear = 2150;
-        var result = shado.date.setDatesByUnits(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear).getYears();
+        var startDay = 31;
+        var startMonth = 12;
+        var startYear = 1899;
+        var startHour = 11;
+        var startMinute = 5;
+        var startSeconds = 10;
+        var endDay = 31;
+        var endMonth = 12;
+        var endYear = 2150;
+        var endHour = 11;
+        var endMinute = 59;
+        var endSeconds = 59;
+        var result = shado.date.setParams(startDay, startMonth, startYear, startHour, startMinute, startSeconds, endDay, endMonth, endYear, endHour, endMinute, endSeconds).getYears();
 
-3.  Calling either the setDates or setDatesByUnits method.  Developers can call methods for Years, Months, Weeks, Days, Hours, Minutes and Seconds to return the calculated difference using dot notation.       
+3.  Calling either the set or setParams method.  Developers can call methods for Years, Months, Weeks, Days, Hours, Minutes and Seconds to return the calculated difference using dot notation.       
 
     Example:
 
         var shado = require("shado");
 
-        var firstDate = new Date(2000, 0, 1);
-        var secondDate = new Date(2014, 3, 22);
-        var years = shado.date.setDates(firstDate, secondDate).getYears();
-        var months = shado.date.setDates(firstDate, secondDate).getMonths();
-        var weeks = shado.date.setDates(firstDate, secondDate).getWeeks();
-        var days = shado.data.setDates(firstDate, secondDate).getDays(false);
-        var hours = shado.date.setDates(firstDate, secondDate).getHours(false);
-        var minutes = shado.date.setDates(firstDate, secondDate).getMinutes(false);
-        var seconds = shado.date.setDates(firstDate, secondDate).getSeconds(false);
+        var startDate = new Date(2000, 0, 1);
+        var endDate = new Date(2014, 3, 22);
+        var years = shado.date.set(startDate, endDate).getYears();
+        var months = shado.date.set(startDate, endDate).getMonths();
+        var weeks = shado.date.set(startDate, endDate).getWeeks();
+        var days = shado.data.set(startDate, endDate).getDays(false);
+        var hours = shado.date.set(startDate, endDate).getHours(false);
+        var minutes = shado.date.set(startDate, endDate).getMinutes(false);
+        var seconds = shado.date.set(startDate, endDate).getSeconds(false);
 
 4.  For calculating Days, Hours, Minutes and Seconds there is one boolean parameter required for the inclusion of the last day in the calculated result.
-    Therefore, true = include last day, false = exclude last day.  This is not optional for the use of true.  This example shows the calculation methods called separately.
+    Therefore, true = include last day, false = exclude last day.  This is not optional for the use of true.  This example shows the calculation methods called separately. If using the boolean parameter set to true with a time segment, including last day is adding on 1 day.
 
     Example:
 
         var shado = require("shado");
-        shado.date.setDates("1999-06-10T14:50:25:545Z", "2019-04-11T16:34:28:019Z");
+        shado.date.set("1999-06-10T14:50:25:545Z", "2019-04-11T16:34:28:019Z");
 
         var days = shado.date.getDays(false); //exclude last day.
         var days = shado.date.getDays(true);  //include last day.
@@ -207,4 +213,4 @@ I want to contribute to the open source community.  My email address is: dj1701.
 Node Version:
 -------------
 
-From shado.js version 1.2.0 or later.  The Node verson of 10.5.0 or later is supported.
+From shado.js v1.3.0 bug fixes have been applied allowing support for Node v4.0.0 or later.	

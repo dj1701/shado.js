@@ -1,4 +1,3 @@
-  
 "use strict"
 
 var shado = require('../release/shado-min');
