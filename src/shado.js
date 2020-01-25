@@ -15,20 +15,23 @@
         if (isInvalidFirstDateParams || isInvalidSecondDateParams) throw new Error('Parameters are expecting type string or date');
     };
 
-    var validateParamatersByUnit = (day, month, year) => {
+    var validateParamatersByUnit = (day, month, year, hour, minute, second) => {
         var isInvalid = (Object.prototype.toString.call(day) !== "[object Number]" && Object.prototype.toString.call(day) !== "[object String]") ||
                         (Object.prototype.toString.call(month) !== "[object Number]" && Object.prototype.toString.call(month) !== "[object String]") || 
-                        (Object.prototype.toString.call(year) !== "[object Number]" && Object.prototype.toString.call(year) !== "[object String]");
+                        (Object.prototype.toString.call(year) !== "[object Number]" && Object.prototype.toString.call(year) !== "[object String]") || 
+                        (Object.prototype.toString.call(hour) !== "[object Number]" && Object.prototype.toString.call(hour) !== "[object String]") || 
+                        (Object.prototype.toString.call(minute) !== "[object Number]" && Object.prototype.toString.call(minute) !== "[object String]") ||
+                        (Object.prototype.toString.call(second) !== "[object Number]" && Object.prototype.toString.call(second) !== "[object String]");
         if (isInvalid) throw new Error('Parameters are expecting type number or string');
     };
 
-    var createDateFromUnits = (day, month, year) => {
+    var createDateFromParams = (day, month, year, hour, minute, second) => {
         timeSegmentPresent = false;
-        return new Date(year, month - 1, day);
+        return new Date(year, month - 1, day, hour, minute, second);
     };
 
     var getDifference = (startDate, endDate) => {
-        return endDate - startDate;
+        return endDate.getTime() - startDate.getTime();
     };
 
     var createTimeSpans = (date) => {
@@ -78,27 +81,27 @@
             if(customPatten.test(date)){
                 timeSegmentPresent = true;
                 var dateString = date.match(customPatten);
-                return useUsDateFormat ? new Date(dateString[3], dateString[1] - 1, dateString[2], (dateString[4]|0), (dateString[5]|0), (dateString[6]|0), (dateString[7]|0))
-                     : new Date(dateString[3], dateString[2] - 1, dateString[1], (dateString[4]|0), (dateString[5]|0), (dateString[6]|0), (dateString[7]|0));
+                return useUsDateFormat ? new Date(Date.UTC(dateString[3], dateString[1] - 1, dateString[2], (dateString[4]|0), (dateString[5]|0), (dateString[6]|0), (dateString[7]|0)))
+                     : new Date(Date.UTC((dateString[3]|0), (dateString[2]|0) - 1, (dateString[1]|0), (dateString[4]|0), (dateString[5]|0), (dateString[6]|0), (dateString[7]|0)));
             }
             var isoPattern = /^(\d{4})-(\d{2})-(\d{2})[T](\d{2}):(\d{2}):(\d{2}):(\d{1,3})[Z]/;
             if(isoPattern.test(date)){
                 timeSegmentPresent = true;
                 var dateString = date.match(isoPattern);
-                return new Date(dateString[1], dateString[2] - 1, dateString[3], dateString[4], dateString[5], dateString[6], dateString[7]);
+                return new Date(Date.UTC(dateString[1], dateString[2] - 1, dateString[3], (dateString[4]|0), (dateString[5]|0), (dateString[6]|0), (dateString[7]|0)));
             }
             var dateSegmentOnlyPattern = /^(\d{2})[\/|-](\d{2})[\/-](\d{4})/;
             if(dateSegmentOnlyPattern.test(date)) {
                 timeSegmentPresent = false;
                 var dateString = date.match(dateSegmentOnlyPattern);
-                return useUsDateFormat ? new Date(dateString[3], dateString[1] - 1, dateString[2]) : new Date(dateString[3], dateString[2] - 1, dateString[1]);
+                return useUsDateFormat ? new Date(Date.UTC(dateString[3], dateString[1] - 1, dateString[2], 0, 0, 0, 0)) : new Date(Date.UTC(dateString[3], dateString[2] - 1, dateString[1], 0, 0, 0, 0));
             }
             throw new Error('Invalid date/time pattern provided');
         }
         return date;
     };
 
-    ns.date.setDates = (beginDate, finishDate, useUsDateFormat) => {
+    ns.date.set = (beginDate, finishDate, useUsDateFormat) => {
         validateParamaters(beginDate, finishDate);
 
         startDate = ns.date.createDate(beginDate, useUsDateFormat);
@@ -108,12 +111,12 @@
         return extensions();
     };
 
-    ns.date.setDatesByUnits = (startDay, startMonth, startYear, endDay, endMonth, endYear) => {
-        validateParamatersByUnit(startDay, startMonth, startYear);
-        validateParamatersByUnit(endDay, endMonth, endYear);
+    ns.date.setParams = (startDay, startMonth, startYear, startHour, startMinute, startSeconds, endDay, endMonth, endYear, endHour, endMinute, endSeconds) => {
+        validateParamatersByUnit(startDay, startMonth, startYear, startHour, startMinute, startSeconds);
+        validateParamatersByUnit(endDay, endMonth, endYear, endHour, endMinute, endSeconds);
 
-        startDate = createDateFromUnits(startDay, startMonth, startYear);
-        endDate = createDateFromUnits(endDay, endMonth, endYear);
+        startDate = createDateFromParams(startDay, startMonth, startYear, startHour, startMinute, startSeconds);
+        endDate = createDateFromParams(endDay, endMonth, endYear, endHour, endMinute, endSeconds);
         difference = getDifference(startDate, endDate);
 
         return extensions();
@@ -138,7 +141,7 @@
             var revisedStartDate = new Date(startDate.toDateString());
             return (((((revisedEndDate - revisedStartDate) / oneDayDuration) + 0.5) << 1) >> 1) + (includeLastDay ? 1 : 0);
         }
-        return ((((difference / oneDayDuration) + 0.5) << 1) >> 1) + (includeLastDay ? 1 : 0);
+        return (((difference / oneDayDuration) << 1) >> 1) + (includeLastDay ? 1 : 0);
     }
 
     ns.date.getHours = (includeLastDay) => ((((difference / oneDayDuration) * 24) << 1) >> 1) + ((includeLastDay && !timeSegmentPresent) ? 24 : 0);
@@ -158,6 +161,7 @@
         var dateObject = date;
         if (Object.prototype.toString.call(date) === "[object String]") {
             dateObject = ns.date.createDate(date, useUsDateFormat);
+            dateObject.setHours(dateObject.getHours() + (dateObject.getTimezoneOffset() / 60));
         }
 
         var timeSpan = createTimeSpans(dateObject);
