@@ -12,7 +12,7 @@
     var validateParamaters = (beginDate, endDate) => {
         var isInvalidFirstDateParams = (Object.prototype.toString.call(beginDate) !== "[object String]" && Object.prototype.toString.call(beginDate) !== "[object Date]");
         var isInvalidSecondDateParams = (Object.prototype.toString.call(endDate) !== "[object String]" && Object.prototype.toString.call(endDate) !== "[object Date]");
-        if (isInvalidFirstDateParams || isInvalidSecondDateParams) throw new Error('Parameters are expecting type string or date');
+        if (isInvalidFirstDateParams || isInvalidSecondDateParams) throw new Error('Parameters expected should be of type string or date');
     };
 
     var validateParamatersByUnit = (day, month, year, hour, minute, second) => {
@@ -22,7 +22,7 @@
                         (Object.prototype.toString.call(hour) !== "[object Number]" && Object.prototype.toString.call(hour) !== "[object String]") || 
                         (Object.prototype.toString.call(minute) !== "[object Number]" && Object.prototype.toString.call(minute) !== "[object String]") ||
                         (Object.prototype.toString.call(second) !== "[object Number]" && Object.prototype.toString.call(second) !== "[object String]");
-        if (isInvalid) throw new Error('Parameters are expecting type number or string');
+        if (isInvalid) throw new Error('Parameters expected should be of type string or date');
     };
 
     var createDateFromParams = (day, month, year, hour, minute, second) => {
@@ -31,7 +31,9 @@
     };
 
     var getDifference = (startDate, endDate) => {
-        return endDate.getTime() - startDate.getTime();
+        var result = endDate.getTime() - startDate.getTime();
+        if(result < 0) throw new Error("The end date cannot be before the start date");
+        return result;
     };
 
     var createTimeSpans = (date) => {

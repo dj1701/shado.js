@@ -1,7 +1,7 @@
 {
   "name": "shado",
-  "version": "1.3.0",
-  "description": "This is a JavaScript Date Comparison Open Source Library to provide precise date comparison calculations between two dates for Years, Months, Days, Weeks, Hours, Minutes and Seconds. The aim of this library is to assist JavaScript Developers in taking away the pain of date handling in JavaScript.",
+  "version": "1.4.0",
+  "description": "This is a JavaScript Date Comparison Open Source Library to provide precise date and time comparison calculations between two dates for Years, Months, Days, Weeks, Hours, Minutes and Seconds. The aim of this library is to assist JavaScript Developers in taking away the pain of date handling in JavaScript.",
   "main": "release/shado-min.js",
   "scripts": {
     "test": "mocha tests/*.js",
@@ -20,7 +20,10 @@
     "between two dates",
     "between two times",
     "different time",
-    "different dates"
+    "different dates",
+    "calculating dates",
+    "calculating between two dates",
+    "calculating between start and end date"
   ],
   "author": "David Jacobs",
   "license": "MIT",
