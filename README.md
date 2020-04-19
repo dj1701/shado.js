@@ -1,7 +1,7 @@
 shado.js
 ========
 
-This is a JavaScript library to provide precise date and time comparison calculations between two dates for Years, Months, Days, Weeks, Hours, Minutes and Seconds.
+This is a JavaScript library to provide precise date and time comparison calculations between two dates for Years, Months, Days, Weeks, Hours, Minutes and Seconds.  The aim of this library is to assist JavaScript Developers in taking away the pain of date handling in JavaScript.
 
 Installation
 ------------
@@ -13,11 +13,11 @@ Latest stable version:
 Instructions on how to use
 --------------------------
 
-1.  The set Method (Previously named setDates)
+1.  The set Method (previously named setDates)
 
-    The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US Date Format.  The default is the UK date format.  Both date parameters can be a string or JavaScript Date Object.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the set method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either parameter is not a string and date type, an exception will be raised with the error message of ‘Parameters are expecting type string or date’.
+    The method takes three parameters for start date and end date with an optional boolean true indicating requirement to use US date format.  The default is the UK date format.  Both date parameters can be a string or JavaScript Date Object.  If using Date Objects the optional boolean parameter is not relevant, because system settings take over the date formatting.  The call to the set method does not require the use of the "new" key word to instantiate the object.  The namespace pattern is used exposing the methods required.  If either parameter is not a string and date type, an exception will be raised with the error message of 'Parameters expected should be of type string or date'.  Also if the end date is passed into the start date parameter with the start date as the end data parameter, an error exception is raised with the error message of 'The end date cannot be before the start date'.
 
-    The set method returns the methods allowing the use of dot notation (method chaining) in one line of code as described in section 3.  Functionality remains in place allowing calls to the calculation methods to be made separately as described in section 4.
+    The set method returns the methods through the use of dot notation (method chaining) in one line of code as described in section 3.  Functionality remains in place allowing calls to the calculation methods to be made separately as described in section 4.
 
     Supported Date/Time Formats
 
@@ -77,11 +77,11 @@ Instructions on how to use
         var endDate = new Date(2014, 3, 27);
         var result = shado.date.set(startDate, endDate).getYears();
 
-2.  The setParams Method (Previously named setDatesByUnits)
+2.  The setParams Method (previously named setDatesByUnits)
 
-    This method allows individual date units of Day, Month, Year, Hour, Minute and Seconds to be passed in as separate parameters, providing additional option as to date input.  The parameter type can be a number or string.  The string numbers can have an optional 0 prefix on them, for example ‘01’.  As with the set method, the setParams method does not require the use of the "new" key word to instantiate the object.   If the parameters are not a number and string type, an exception will be raised with the error message of ‘Parameters are expecting type number or string’.
+    This method allows individual date units of Day, Month, Year, Hour, Minute and Seconds to be passed in as separate parameters, providing additional option as to date input.  The parameter type can be a number or string.  The string numbers can have an optional 0 prefix on them, for example '01'.  As with the set method, the setParams method does not require the use of the "new" key word to instantiate the object.   If the parameters are not a number and string type, an exception will be raised with the error message of 'Parameters expected should be of type string or date'.  Also if the end date is passed into the start date parameter with the start date as the end data parameter, an error exception is raised with the error message of 'The end date cannot be before the start date'.
 
-    The setParams method returns the methods allowing the use of dot notation (method chaining) in one line of code as seen in the example below calling getYears().  Functionality remains in place allowing calls to the calculation methods to be made separately as described in section 4.
+    The setParams method returns the methods through the use of dot notation (method chaining) in one line of code as seen in the example below calling getYears().  Functionality remains in place allowing calls to the calculation methods to be made separately as described in section 4.
 
     Example of the setParams method:
 
@@ -118,7 +118,7 @@ Instructions on how to use
         var seconds = shado.date.set(startDate, endDate).getSeconds(false);
 
 4.  For calculating Days, Hours, Minutes and Seconds there is one boolean parameter required for the inclusion of the last day in the calculated result.
-    Therefore, true = include last day, false = exclude last day.  This is not optional for the use of true.  This example shows the calculation methods called separately. If using the boolean parameter set to true with a time segment, including last day is adding on 1 day.
+    Therefore, true = include last day, false = exclude last day (or not provided).  This is not optional for the use of true.  This example shows the calculation methods called separately. If using the boolean parameter set to true with a time segment, including last day is adding on 1 day.
 
     Example:
 

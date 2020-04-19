@@ -4,6 +4,9 @@ var shado = require('../release/shado-min');
 var expect = require('chai').expect;
 
 describe('Invalid Parameters', () => {
+    var expectedErrorExceptionMessage = 'Parameters expected should be of type string or date';
+    var expectedInvalidPattenFormatMessage = 'Invalid date/time pattern provided';
+    var expectedEndDateBeforeStartDateErrorMessage = 'The end date cannot be before the start date';
 
     describe('for the method set', () => {
         it('Should raise exception if either parameter is not of type String', () => {
@@ -12,7 +15,7 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.set(firstDate, secondDate);
-            }).to.throw('Parameters are expecting type string or date');
+            }).to.throw(expectedErrorExceptionMessage);
         });
 
         it('Should raise exception if one parameter is not of type Date or String', () => {
@@ -21,7 +24,7 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.set(firstDate, secondDate);
-            }).to.throw('Parameters are expecting type string or date');
+            }).to.throw(expectedErrorExceptionMessage);
         });
 
         it('Should raise exception if both parameters is null', () => {
@@ -30,7 +33,7 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.set(firstDate, secondDate);
-            }).to.throw('Parameters are expecting type string or date');
+            }).to.throw(expectedErrorExceptionMessage);
         });
 
         it('Should raise exception when firstDate contains invalid date format', () => {
@@ -39,7 +42,7 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.set(firstDate, secondDate)
-            }).to.throw('Invalid date/time pattern provided');
+            }).to.throw(expectedInvalidPattenFormatMessage);
         });
 
         it('Should raise exception when secondDate contains invalid date format', () => {
@@ -48,11 +51,20 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.set(firstDate, secondDate)
-            }).to.throw('Invalid date/time pattern provided');
+            }).to.throw(expectedInvalidPattenFormatMessage);
+        });
+
+        it('Should raise exception when secondDate is before firstDate', () => {
+            var firstDate = "2000-12-31T12:50:25:654Z";
+            var secondDate = "2099-12-31T16:45:35:545Z";
+
+            expect(() => {
+                shado.date.set(secondDate, firstDate)
+            }).to.throw(expectedEndDateBeforeStartDateErrorMessage);
         });
     });
 
-    describe('for the method setByUnit', () => {
+    describe('for the method setParams', () => {
         it('Should raise exception if day parameter is not a number or string', () => {
             var startDay = new Object();
             var startMonth = 1;
@@ -70,7 +82,7 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.setParams(startDay, startMonth, startYear, startHour, startMinute, startSeconds, endDay, endMonth, endYear, endHour, endMinute, endSeconds);
-            }).to.throw('Parameters are expecting type number or string');
+            }).to.throw(expectedErrorExceptionMessage);
         });
 
         it('Should raise exception if hour parameter is not a number or string', () => {
@@ -90,7 +102,7 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.setParams(startDay, startMonth, startYear, startHour, startMinute, startSeconds, endDay, endMonth, endYear, endHour, endMinute, endSeconds);
-            }).to.throw('Parameters are expecting type number or string');
+            }).to.throw(expectedErrorExceptionMessage);
         });
 
         it('Should raise exception if year parameter is not a number or string', () => {
@@ -110,7 +122,7 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.setParams(startDay, startMonth, startYear, startHour, startMinute, startSeconds, endDay, endMonth, endYear, endHour, endMinute, endSeconds);
-            }).to.throw('Parameters are expecting type number or string');
+            }).to.throw(expectedErrorExceptionMessage);
         });
 
         it('Should raise exception if month parameter is not a number or string', () => {
@@ -130,7 +142,27 @@ describe('Invalid Parameters', () => {
 
             expect(() => {
                 shado.date.setParams(startDay, startMonth, startYear, startHour, startMinute, startSeconds, endDay, endMonth, endYear, endHour, endMinute, endSeconds);
-            }).to.throw('Parameters are expecting type number or string');
+            }).to.throw(expectedErrorExceptionMessage);
+        });
+
+        it('Should raise exception when secondDate is before firstDate', () => {
+            var startDay = 1;
+            var startMonth = 1;
+            var startYear = 2016;
+            var startHour = 7;
+            var startMinute = 23;
+            var startSeconds = 34;
+
+            var endDay = 1;
+            var endMonth = 1;
+            var endYear = 2016;
+            var endHour = 15;
+            var endMinute = 5;
+            var endSeconds = 50;
+
+            expect(() => {
+                shado.date.setParams(endDay, endMonth, endYear, endHour, endMinute, endSeconds, startDay, startMonth, startYear, startHour, startMinute, startSeconds);
+            }).to.throw(expectedEndDateBeforeStartDateErrorMessage);
         });
     });
 });
