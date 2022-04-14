@@ -213,4 +213,4 @@ I want to contribute to the open source community.  My email address is: dj1701.
 Node Version:
 -------------
 
-From shado.js v1.3.0 bug fixes have been applied allowing support for Node v4.0.0 or later.	
+From shado.js v1.5.0 onwards is it only supported run on Node.js version 10.0.0 or later.
